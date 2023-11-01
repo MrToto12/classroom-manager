@@ -15,6 +15,10 @@ public abstract class Persona {
         this.fechaDeNacimeinto = fechaDeNacimeinto;
         this.edad = edad;
     }
+
+    public String getLegajo(){
+        return null;
+    }
     // public abstract void registrar();
     // public abstract void registrarEnCurso();
 }
