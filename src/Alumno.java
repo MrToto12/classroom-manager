@@ -18,5 +18,16 @@ public class Alumno extends Persona{
     public String getLegajo(){
         return this.legajo;
     }
-  
+
+    @Override
+    public String toString(){
+        return "Alumno{" +
+                "nombre='" + getNombre() + '\'' +
+                ", apellido='" + getApellido() + '\'' +
+                ", dni=" + getDni() +
+                ", fechaDeNacimiento=" + getFechaDeNacimiento() +
+                ", edad=" + getEdad() +
+                ", legajo='" + legajo + '\'' +
+                '}';
+    }
 }

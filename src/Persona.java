@@ -61,7 +61,7 @@ public abstract class Persona {
         return null; // Valor null por defecto para los docentes
     }
 
-    // Posibles metodos para agregar despues
-    // public abstract void registrar();
-    // public abstract void registrarEnCurso();
+    public String toString(){
+        return null;
+    }
 }
