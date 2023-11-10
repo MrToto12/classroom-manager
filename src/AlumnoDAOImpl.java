@@ -1,6 +1,5 @@
 import DbConnect.DbConnect;
 import java.sql.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +33,19 @@ public class AlumnoDAOImpl implements PersonaDAO{
     }
 
     @Override
+    public void update(Persona persona){
+        this.delete(persona);
+        this.insert(persona);
+    }
+
+    @Override
+    public void updateByID(int id){
+        Persona persona = this.getById(id);
+        this.delete(persona);
+        this.insert(persona);
+    }
+
+    @Override
     public void delete(Persona persona){
         Alumno alumno = (Alumno) persona;
 
@@ -46,6 +58,12 @@ public class AlumnoDAOImpl implements PersonaDAO{
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void deleteById(int id){
+        Persona personaAEliminar = this.getById(id);
+        this.delete(personaAEliminar);
     }
 
     @Override
@@ -82,7 +100,23 @@ public class AlumnoDAOImpl implements PersonaDAO{
         return alumnos;
     }
 
-    // Otros métodos para update y delete según sea necesario
+    @Override
+    public int countRows(){
+        String sql = "SELECT COUNT(*) FROM alumnos";
+        try (Connection connection = dbConnect.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
+
+                if (resultSet.next()) {
+                    return resultSet.getInt(1);
+                }
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            return 0;
+    }
 
     private Persona mapResultSetToAlumno(ResultSet resultSet) throws SQLException {
         Alumno alumno = new Alumno(

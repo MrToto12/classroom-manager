@@ -1,27 +1,15 @@
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.time.LocalDate;
-import java.util.Calendar;
 import java.util.List;
-
-import DbConnect.DbConnect;
 
 public class Main {
     public static void main(String[] args) throws Exception {
         PersonaFactory alumnoFactory = AlumnoFactory.instance();
         PersonaFactory docenteFactory = DocenteFactory.instance();
-
-        LocalDate ld = LocalDate.of(2004, 9,4);
-        Persona alumno1 = alumnoFactory.crearPersona("Tomas","Temporelli", 45488231, LocalDate.of(2004, 9,4));
-        Persona alumno2 = alumnoFactory.crearPersona("Tomas","Temporelli", 45488651, LocalDate.of(2004, 9,4));
-        Persona alumno3 = alumnoFactory.crearPersona("Tomas","Temporelli", 45488444, LocalDate.of(2004, 9,4));
-
-
-        System.out.println(alumno1.getLegajo());
-
-        System.out.println(alumno2.getLegajo());
-
-        System.out.println(alumno3.getLegajo());
+//
+//        Persona alumno1 = alumnoFactory.crearPersona("Juan","Martinez", 39421766,
+//                          LocalDate.of(1996, 5,21));
+//
+//
+//        System.out.println(alumno1.getLegajo());
 
 //        Persona docente1 = docenteFactory.crearPersona("Pablo","Virgolini",26004744,LocalDate.of(1972, 8, 21));
 //
@@ -36,14 +24,22 @@ public class Main {
 
 
         //Testing DB Connection
-        AlumnoDAOImpl db = new AlumnoDAOImpl();
-        db.insert((Alumno) alumno2);
+        PersonaDAO alumnos_db = new AlumnoDAOImpl();
 
-        List<Persona> db_alumnos =  db.getAll();
-
+        List<Persona> db_alumnos =  alumnos_db.getAll();
+        System.out.println("BEFORE DELETING\n");
         for (Persona persona : db_alumnos) {
             System.out.println(persona);
         }
+
+
+        System.out.println("-----------------------------------------------\nAFTER DELETING\n");
+
+
+        //Deleting Works
+//        Persona alumnoAEliminar = alumnos_db.getById(2);
+//        alumnos_db.delete(alumnoAEliminar);
+//
 
     }
 }

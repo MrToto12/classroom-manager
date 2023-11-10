@@ -3,8 +3,8 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class AlumnoFactory implements PersonaFactory, hasLegajo, calcularFecha{
-    public static int cantAlumnos;      //Auto contador para crear el legajo
     public static AlumnoFactory instance = null;
+    public PersonaDAO db = new AlumnoDAOImpl();
 
     private AlumnoFactory(){
         
@@ -23,13 +23,14 @@ public class AlumnoFactory implements PersonaFactory, hasLegajo, calcularFecha{
         Alumno alumno = new Alumno(nombre, apellido, dni, fechaDeNacimeinto, calcularFecha(fechaDeNacimeinto));
         alumno.setLegajo(crearLegajo(dni));
 
-        cantAlumnos++;
+        db.insert(alumno);
         return alumno;
     }
 
     @Override
     public String crearLegajo(int dni){
         int ultimosTresDigitos = dni % 1000;
+        int cantAlumnos = db.countRows();
 
         LocalDate currentDate = LocalDate.now();
         int currentDay = currentDate.getDayOfMonth();
