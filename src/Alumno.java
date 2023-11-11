@@ -21,13 +21,10 @@ public class Alumno extends Persona{
 
     @Override
     public String toString(){
-        return "Alumno{" +
-                "nombre='" + getNombre() + '\'' +
-                ", apellido='" + getApellido() + '\'' +
-                ", dni=" + getDni() +
-                ", fechaDeNacimiento=" + getFechaDeNacimiento() +
-                ", edad=" + getEdad() +
-                ", legajo='" + legajo + '\'' +
-                '}';
+        return "\nAlumno: " + this.getNombre() + " " + this.getApellido() +
+                " - " + String.valueOf(this.getEdad()) + " años."
+                + "\nDNI: " + String.valueOf(this.getDni())
+                + "\nFecha de nacimiento: " + this.getFechaDeNacimiento()
+                + "\n" + this.legajo;
     }
 }

@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.List;
 
 public class Main {
@@ -5,16 +6,14 @@ public class Main {
         PersonaFactory alumnoFactory = AlumnoFactory.instance();
         PersonaFactory docenteFactory = DocenteFactory.instance();
 //
-//        Persona alumno1 = alumnoFactory.crearPersona("Juan","Martinez", 39421766,
-//                          LocalDate.of(1996, 5,21));
-//
+//        Persona alumno1 = alumnoFactory.crearPersona("Alejandro","Zdut", 37331650,
+//                          LocalDate.of(1993, 7,2));
+
 //
 //        System.out.println(alumno1.getLegajo());
 
-//        Persona docente1 = docenteFactory.crearPersona("Pablo","Virgolini",26004744,LocalDate.of(1972, 8, 21));
-//
-//        System.out.println(docente1);
-//
+//        Persona docente1 = docenteFactory.crearPersona("Efrain","Molina",25215342, LocalDate.of(1979, 12, 16));
+////
 //        ActividadFactory fabricaCursos = new CursosFactory();
 //
 //        Calendar fecha = Calendar.getInstance();
@@ -25,21 +24,21 @@ public class Main {
 
         //Testing DB Connection
         PersonaDAO alumnos_db = new AlumnoDAOImpl();
+        PersonaDAO docentes_db = new DocenteDAOImpl();
 
         List<Persona> db_alumnos =  alumnos_db.getAll();
-        System.out.println("BEFORE DELETING\n");
+        System.out.println("\nAlumnos en base de datos:");
         for (Persona persona : db_alumnos) {
             System.out.println(persona);
         }
 
+        System.out.println("\nDocentes en base de datos: ");
 
-        System.out.println("-----------------------------------------------\nAFTER DELETING\n");
+        List<Persona> db_docentes =  docentes_db.getAll();
+        for (Persona persona : db_docentes) {
+            System.out.println(persona);
+        }
 
-
-        //Deleting Works
-//        Persona alumnoAEliminar = alumnos_db.getById(2);
-//        alumnos_db.delete(alumnoAEliminar);
-//
 
     }
 }

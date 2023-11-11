@@ -118,6 +118,25 @@ public class AlumnoDAOImpl implements PersonaDAO{
             return 0;
     }
 
+    @Override
+    public int getLastPersonaId() {
+        String sql = "SELECT MAX(id) FROM alumnos";
+
+        try (Connection connection = dbConnect.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
+
+            if (resultSet.next()) {
+                return resultSet.getInt(1);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return 0;
+    }
+
     private Persona mapResultSetToAlumno(ResultSet resultSet) throws SQLException {
         Alumno alumno = new Alumno(
                 resultSet.getString("nombre"),
@@ -129,5 +148,6 @@ public class AlumnoDAOImpl implements PersonaDAO{
         alumno.setLegajo(resultSet.getString("legajo"));
         return alumno;
     }
+
 }
 

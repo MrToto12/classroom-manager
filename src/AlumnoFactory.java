@@ -30,12 +30,12 @@ public class AlumnoFactory implements PersonaFactory, hasLegajo, calcularFecha{
     @Override
     public String crearLegajo(int dni){
         int ultimosTresDigitos = dni % 1000;
-        int cantAlumnos = db.countRows();
+        int autoIncremental = db.getLastPersonaId();
 
         LocalDate currentDate = LocalDate.now();
         int currentDay = currentDate.getDayOfMonth();
 
-        String legajo = String.valueOf(ultimosTresDigitos) + "-" + String.valueOf(currentDay) + "-" + String.valueOf(cantAlumnos);
+        String legajo = String.valueOf(ultimosTresDigitos) + "-" + String.valueOf(currentDay) + "-" + String.valueOf(autoIncremental);
 
         return legajo;
     }

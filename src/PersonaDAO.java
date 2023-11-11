@@ -9,4 +9,5 @@ public interface PersonaDAO {
     void delete(Persona persona);
     void deleteById(int id);
     int countRows();
+    int getLastPersonaId();
 }
