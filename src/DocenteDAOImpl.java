@@ -144,6 +144,29 @@ public class DocenteDAOImpl implements PersonaDAO{
         return 0;
     }
 
+    @Override
+    public boolean existsInDb(int dni){
+        return getIdByDni(dni) != -1 ? true : false;
+    }
+
+    @Override
+    public int getIdByDni(int dni){
+        String sql = "SELECT * FROM docentes WHERE dni=?";
+        try (Connection connection = dbConnect.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, dni);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getInt("id");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
     private Persona mapResultSetToDocente(ResultSet resultSet) throws SQLException {
         Docente docente = new Docente(
                 resultSet.getString("nombre"),
@@ -155,4 +178,5 @@ public class DocenteDAOImpl implements PersonaDAO{
         docente.setCvFromString(resultSet.getString("cv"));
         return docente;
     }
+
 }

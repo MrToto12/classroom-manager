@@ -9,5 +9,7 @@ public interface PersonaDAO {
     void delete(Persona persona);
     void deleteById(int id);
     int countRows();
+    boolean existsInDb(int dni);
+    int getIdByDni(int dni);
     int getLastPersonaId();
 }

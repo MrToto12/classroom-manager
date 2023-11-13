@@ -18,8 +18,9 @@ public class DocenteFactory implements PersonaFactory, calcularFecha   {
     public Persona crearPersona(String nombre, String apellido, int dni, LocalDate  fechaDeNacimeinto){
         Docente docente = new Docente(nombre, apellido, dni, fechaDeNacimeinto, calcularFecha(fechaDeNacimeinto));
         docente.setCv(crearCv());
-
-        db.insert(docente);
+        if(!db.existsInDb(dni)) {
+            db.insert(docente);
+        }
         return docente;
     }
 

@@ -1,3 +1,5 @@
+import java.time.DayOfWeek;
+import java.time.LocalTime;
 import java.util.Calendar;
 
 public abstract class ActividadFactory {
@@ -10,11 +12,11 @@ public abstract class ActividadFactory {
     }
 
 
-    public Virtual crearVirtual(String nombre, int codigoDeCatedra, String descripcionDelTema, String Objetivo, String personasDirigidas, float costo, String linkMeet, Calendar diaYHorario){
+    public Virtual crearVirtual(String nombre, int codigoDeCatedra, String descripcionDelTema, String Objetivo, String personasDirigidas, double costo, String linkMeet, DayOfWeek diaDeCursado, LocalTime horaDeInicio, LocalTime horaDeCierre){
         return null;
     }
     
-    public Presencial crearPresencial(String nombre, int codigoDeCatedra, String descripcionDelTema, String Objetivo, String personasDirigidas, float costo, Calendar diaYHorario){
+    public Presencial crearPresencial(String nombre, int codigoDeCatedra, String descripcionDelTema, String Objetivo, String personasDirigidas, double costo, DayOfWeek diaDeCursado, LocalTime horaDeInicio, LocalTime horaDeCierre){
         return null;
     }
     //Esto me permite en un futuro extender mi programa permitiendome crear otro tipo de actividades ademas de los cursos.

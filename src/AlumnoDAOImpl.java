@@ -137,6 +137,28 @@ public class AlumnoDAOImpl implements PersonaDAO{
         return 0;
     }
 
+    @Override
+    public boolean existsInDb(int dni){
+        return getIdByDni(dni) == -1 ? true : false;
+    }
+
+    public int getIdByDni(int dni){
+        String sql = "SELECT * FROM alumnos WHERE dni=?";
+        try (Connection connection = dbConnect.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, dni);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getInt("id");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
     private Persona mapResultSetToAlumno(ResultSet resultSet) throws SQLException {
         Alumno alumno = new Alumno(
                 resultSet.getString("nombre"),

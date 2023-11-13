@@ -23,7 +23,10 @@ public class AlumnoFactory implements PersonaFactory, hasLegajo, calcularFecha{
         Alumno alumno = new Alumno(nombre, apellido, dni, fechaDeNacimeinto, calcularFecha(fechaDeNacimeinto));
         alumno.setLegajo(crearLegajo(dni));
 
-        db.insert(alumno);
+
+        if(!db.existsInDb(dni)){
+            db.insert(alumno);
+        }
         return alumno;
     }
 
