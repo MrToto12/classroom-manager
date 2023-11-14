@@ -1,9 +1,8 @@
 import java.time.DayOfWeek;
 import java.time.LocalTime;
-import java.util.Calendar;
 
 public class CursosFactory extends ActividadFactory {
-    public CursoDAO db = new CursoPresencialDAOImpl();
+    public CursoDAO db = new CursoDAOImpl();
     
     @Override
     public Virtual crearVirtual(String nombre, int codigoDeCatedra, String descripcionDelTema, String objetivo, String personasDirigidas, double costo, String linkeMeet, DayOfWeek diaDeCursado, LocalTime horaDeInicio, LocalTime horaDeCierre){
@@ -14,7 +13,10 @@ public class CursosFactory extends ActividadFactory {
     public Presencial crearPresencial(String nombre, int codigoDeCatedra, String descripcionDelTema, String objetivo, String personasDirigidas, double costo, DayOfWeek diaDeCursado, LocalTime horaDeInicio, LocalTime horaDeCierre){
         CursoPresencial curso = new CursoPresencial(nombre, codigoDeCatedra, descripcionDelTema, objetivo, personasDirigidas, costo, diaDeCursado, horaDeInicio, horaDeCierre);
 
-        db.insert("Presencial", curso);
+        if(!db.existsInDb(nombre, codigoDeCatedra)){
+            db.insert("Presencial", curso);
+        }
+
         return curso;
     }
 }

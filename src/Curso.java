@@ -15,6 +15,7 @@ public abstract class Curso {
     private LocalTime horaDeCierre;
     private List<Persona> alumnos = new ArrayList<Persona>();
     private Docente docente;
+    private CursoDAO db = new CursoDAOImpl();
 
     public Curso(String nombre, int codigoDeCatedra, String descripcionDelTema, String objetivo, String personasDirigidas, double costo, DayOfWeek diaDeCursado, LocalTime horaDeInicio, LocalTime horaDeCierre) {
         this.nombre = nombre;
@@ -100,6 +101,13 @@ public abstract class Curso {
 
     public void setDocente(Docente docente){
         this.docente = docente;
+
+//        List<Integer> id_catedras = db.getIdsByName(this.nombre);
+//        for (int id_catedra : id_catedras){
+//            db.getById(id_catedra);
+//        }
+//        db.addDocente(db.getIdsByName());
+
     }
 
     public void setDiaDeCursado(DayOfWeek diaDeCursado) {

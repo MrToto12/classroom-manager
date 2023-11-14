@@ -49,7 +49,7 @@ public class DocenteDAOImpl implements PersonaDAO{
     public void delete(Persona persona){
         Docente docente = (Docente) persona;
 
-        String sql = "DELETE FROM docentes WHERE nombre=? AND apellido=? AND dni=? AND fecha_nacimiento=? AND edad=? AND cv=?";
+        String sql = "DELETE FROM docent es WHERE nombre=? AND apellido=? AND dni=? AND fecha_nacimiento=? AND edad=? AND cv=?";
 
         try (Connection connection = dbConnect.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -147,6 +147,11 @@ public class DocenteDAOImpl implements PersonaDAO{
     @Override
     public boolean existsInDb(int dni){
         return getIdByDni(dni) != -1 ? true : false;
+    }
+
+    @Override
+    public boolean existsInDbById(int id){
+        return getById(id) != (null);
     }
 
     @Override

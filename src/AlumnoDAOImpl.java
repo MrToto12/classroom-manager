@@ -139,7 +139,12 @@ public class AlumnoDAOImpl implements PersonaDAO{
 
     @Override
     public boolean existsInDb(int dni){
-        return getIdByDni(dni) == -1 ? true : false;
+        return getIdByDni(dni) == -1 ? false : true;
+    }
+
+    @Override
+    public boolean existsInDbById(int id){
+        return getById(id) != (null);
     }
 
     public int getIdByDni(int dni){

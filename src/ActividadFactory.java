@@ -1,6 +1,5 @@
 import java.time.DayOfWeek;
 import java.time.LocalTime;
-import java.util.Calendar;
 
 public abstract class ActividadFactory {
     public Virtual crearVirtual(){
