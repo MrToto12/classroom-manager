@@ -5,9 +5,17 @@ import java.util.List;
 
 public class DocenteDAOImpl implements PersonaDAO{
     private final DbConnect dbConnect;
+    private static DocenteDAOImpl instance = null;
 
-    public DocenteDAOImpl() {
-        this.dbConnect = new DbConnect();
+    private DocenteDAOImpl() {
+        this.dbConnect = DbConnect.instance();
+    }
+
+    public static DocenteDAOImpl instance(){
+        if(instance == null){
+            instance = new DocenteDAOImpl();
+        }
+        return instance;
     }
 
     @Override
@@ -170,6 +178,12 @@ public class DocenteDAOImpl implements PersonaDAO{
             e.printStackTrace();
         }
         return -1;
+    }
+
+    @Override
+    public boolean hasDescuento(int dni){
+        //Los docentes no tienen descuento
+        return false;
     }
 
     private Persona mapResultSetToDocente(ResultSet resultSet) throws SQLException {

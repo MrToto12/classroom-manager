@@ -5,9 +5,17 @@ import java.util.List;
 
 public class AlumnoDAOImpl implements PersonaDAO{
     private final DbConnect dbConnect;
+    private static AlumnoDAOImpl instance = null;
 
-    public AlumnoDAOImpl() {
-        this.dbConnect = new DbConnect();
+    private AlumnoDAOImpl() {
+        this.dbConnect = DbConnect.instance();
+    }
+
+    public static AlumnoDAOImpl instance(){
+        if(instance == null){
+            instance = new AlumnoDAOImpl();
+        }
+        return instance;
     }
 
     @Override
@@ -162,6 +170,23 @@ public class AlumnoDAOImpl implements PersonaDAO{
             e.printStackTrace();
         }
         return -1;
+    }
+
+    public boolean hasDescuento(int id){
+        String sql = "SELECT COUNT(*) FROM cursos_alumnos WHERE id_alumno=?";
+        try (Connection connection = dbConnect.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, id);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                   return resultSet.getInt(1) >= 2;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     private Persona mapResultSetToAlumno(ResultSet resultSet) throws SQLException {

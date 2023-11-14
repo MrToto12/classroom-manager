@@ -3,18 +3,15 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class AlumnoFactory implements PersonaFactory, hasLegajo, calcularFecha{
-    public static AlumnoFactory instance = null;
-    public PersonaDAO db = new AlumnoDAOImpl();
+    private static AlumnoFactory instance = null;
+    public PersonaDAO db = AlumnoDAOImpl.instance();
 
-    private AlumnoFactory(){
-        
-    }
+    private AlumnoFactory(){}
 
     public static AlumnoFactory instance(){
         if(instance == null){
             instance = new AlumnoFactory();
         }
-
         return instance;
     }
 
@@ -47,6 +44,16 @@ public class AlumnoFactory implements PersonaFactory, hasLegajo, calcularFecha{
     public int calcularFecha(LocalDate fechaDeNacimiento){
         int currentYear = LocalDate.now().getYear();
         return currentYear - fechaDeNacimiento.getYear();
+    }
+
+    @Override
+    public Persona getFromDb(int dni){
+        return db.getById(db.getIdByDni(dni));
+    }
+
+    @Override
+    public void delete(int dni){
+        db.deleteById(db.getIdByDni(dni));
     }
     
 }

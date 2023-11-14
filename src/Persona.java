@@ -64,4 +64,11 @@ public abstract class Persona {
     public String toString(){
         return null;
     }
+
+    public void inscribirACurso(String nombreCurso){
+    }
+    public boolean hasDescuento(){
+        //Los docentes no acceden al descuento
+        return false;
+    }
 }

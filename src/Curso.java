@@ -15,7 +15,7 @@ public abstract class Curso {
     private LocalTime horaDeCierre;
     private List<Persona> alumnos = new ArrayList<Persona>();
     private Docente docente;
-    private CursoDAO db = new CursoDAOImpl();
+    private CursoDAO db = CursoDAOImpl.instance();
 
     public Curso(String nombre, int codigoDeCatedra, String descripcionDelTema, String objetivo, String personasDirigidas, double costo, DayOfWeek diaDeCursado, LocalTime horaDeInicio, LocalTime horaDeCierre) {
         this.nombre = nombre;

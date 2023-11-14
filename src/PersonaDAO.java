@@ -13,4 +13,5 @@ public interface PersonaDAO {
     boolean existsInDbById(int id);
     int getIdByDni(int dni);
     int getLastPersonaId();
+    boolean hasDescuento(int dni);
 }

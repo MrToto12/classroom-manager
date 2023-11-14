@@ -6,18 +6,24 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) throws Exception {
         PersonaFactory alumnoFactory = AlumnoFactory.instance();
-        CursoDAO db_cursos = new CursoDAOImpl();
-        ActividadFactory fabricaCursos = new CursosFactory();
-        PersonaDAO db_alumnos = new AlumnoDAOImpl();
-        PersonaDAO db_docentes = new DocenteDAOImpl();
+        PersonaFactory docenteFactory = DocenteFactory.instance();
+        CursoDAO db_cursos = CursoDAOImpl.instance();
+        ActividadFactory fabricaCursos = CursosFactory.instance();
+        PersonaDAO db_alumnos = AlumnoDAOImpl.instance();
+        PersonaDAO db_docentes = DocenteDAOImpl.instance();
 
-        List<Integer> id_catedras1 = db_cursos.getIdsByName("Paradigmas de Programacion");
-        System.out.println(id_catedras1.get(id_catedras1.size()-1));
+        Persona alumno1 = alumnoFactory.getFromDb(45488231);
+        alumno1.inscribirACurso("Paradigmas de Programacion");
 
-        //Ya inscripto en prsencial (No lo inscribe)
-        db_cursos.inscribirAlumno("Paradigmas de Programacion", 3);
+        // -------- CHECKEAR DESCUENTOS --------
+        for(Persona alumno :db_alumnos.getAll()){
+            int id = db_alumnos.getIdByDni(alumno.getDni());
+            if(alumno.hasDescuento()){
+                System.out.println("El alumno " + alumno.getNombre() + " " + alumno.getApellido() +
+                        " tiene acceso al descuento ");
+            }
 
-        db_cursos.addDocente(164, 1);
+        }
 
 //        Persona alumno1 = alumnoFactory.crearPersona("Alejandro","Zdut", 37331650,
 //                          LocalDate.of(1993, 7,2));

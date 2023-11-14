@@ -1,4 +1,6 @@
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Scanner;
 
 public class Docente extends Persona{
     CurriculumVitae cv;
@@ -38,6 +40,31 @@ public class Docente extends Persona{
                         + "\n" + this.cv.toString();
         return result;
     }
-    
+
+    @Override
+    public void inscribirACurso(String nombreCurso){
+        CursoDAOImpl db = CursoDAOImpl.instance();
+        Scanner scanner = new Scanner(System.in);
+        List<Integer> id_catedras = db.getIdsByName(nombreCurso);
+
+        System.out.println("¿En que catedra quiere inscribir al profesor?\n");
+        for(int id_catedra: id_catedras){
+            System.out.println("Catedra " + db.getById(id_catedra).getCodigoDeCatedra());
+        }
+        System.out.println("\nPorfavor ingrese el numero de la catedra: ");
+
+        int catedraSeleccionada = scanner.nextInt();
+        boolean catedraEncontrada = false;
+
+        for(int id_catedra: id_catedras){
+            if(catedraSeleccionada == db.getById(id_catedra).getCodigoDeCatedra()){
+               db.addDocente(id_catedra, DocenteDAOImpl.instance().getIdByDni(this.getDni()));
+               return;
+            }
+        }
+
+        System.out.println("\nLa catedra seleccionada no existe en la base de datos. Porfavor intentelo de nuevo.\n");
+        return;
+    }
 }
 

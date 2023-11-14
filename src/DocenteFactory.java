@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class DocenteFactory implements PersonaFactory, calcularFecha   {
     public static DocenteFactory instance = null;
-    public PersonaDAO db = new DocenteDAOImpl();
+    public PersonaDAO db = DocenteDAOImpl.instance();
 
     private DocenteFactory(){}
 
@@ -45,6 +45,16 @@ public class DocenteFactory implements PersonaFactory, calcularFecha   {
     public int calcularFecha(LocalDate fechaDeNacimiento){
         int currentYear = LocalDate.now().getYear();
         return currentYear - fechaDeNacimiento.getYear();
+    }
+
+    @Override
+    public Persona getFromDb(int dni){
+        return db.getById(db.getIdByDni(dni));
+    }
+
+    @Override
+    public void delete(int dni){
+        db.deleteById(db.getIdByDni(dni));
     }
 
 }

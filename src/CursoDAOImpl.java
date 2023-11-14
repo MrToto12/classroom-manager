@@ -3,23 +3,31 @@ import java.sql.*;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class CursoDAOImpl implements CursoDAO{
     private final DbConnect dbConnect;
-    private final PersonaDAO alumnos_db = new AlumnoDAOImpl();
-    private final PersonaDAO docentes_db = new DocenteDAOImpl();
+    private final PersonaDAO alumnos_db = AlumnoDAOImpl.instance();
+    private final PersonaDAO docentes_db = DocenteDAOImpl.instance();
+    private static CursoDAOImpl instance = null;
 
-    public CursoDAOImpl() {
-        this.dbConnect = new DbConnect();
+    public static CursoDAOImpl instance(){
+        if(instance == null){
+            instance = new CursoDAOImpl();
+        }
+        return instance;
+    }
+
+    private CursoDAOImpl() {
+        this.dbConnect = DbConnect.instance();
     }
 
     @Override
     public void insert(String tipo_curso, Curso curso) {
-        CursoPresencial cursoPresencial = (CursoPresencial) curso;
 
-        String sql = "INSERT INTO cursos (tipo_cursado, nombre, codigo_de_catedra, descripcion, objetivo, personas_dirigidas, costo, hora_inicio, hora_cierre, dia_de_cursado) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, CAST(? AS dia_de_cursado_enum))";
+        String sql = "INSERT INTO cursos (tipo_cursado, nombre, codigo_de_catedra, descripcion, objetivo, personas_dirigidas, costo, hora_inicio, hora_cierre, dia_de_cursado, link_meet) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, CAST(? AS dia_de_cursado_enum), ?)";
 
         try (Connection connection = dbConnect.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -33,6 +41,11 @@ public class CursoDAOImpl implements CursoDAO{
                 preparedStatement.setString(8, curso.getHoraDeInicio().toString());
                 preparedStatement.setString(9, curso.getHoraDeCierre().toString());
             preparedStatement.setString(10, curso.getDiaDeCursado().name());
+
+            if(tipo_curso == "Virtual"){
+                CursoVirtual cursoVirtual = (CursoVirtual) curso;
+                preparedStatement.setString(11, cursoVirtual.getLinkMeet());
+            }
 
             preparedStatement.executeUpdate();
         }
@@ -127,6 +140,10 @@ public class CursoDAOImpl implements CursoDAO{
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        if(idCursos.size()!=0){
+            // De menor a mayor
+            Collections.reverse(idCursos);
+        }
         return idCursos;
     }
 
@@ -143,6 +160,15 @@ public class CursoDAOImpl implements CursoDAO{
                     //PRINT PARA DEBUGGING
                     System.out.println("\n-- Alumno no esta inscripto en ningun presencial --\n");
 
+                    //Verifica todas las catedras
+                    for(int id_catedra : id_catedras){
+                        if((!cursoIsFull(id_catedra)) && id_catedra != last_id_curso){
+                            inscribir(id_catedra, id_alumno);
+                            return;
+                        }
+                    }
+
+                    //Ya se que es la ultima catedra del curso, en caso de estar llena, creo una nueva
                     if(cursoIsFull(last_id_curso)){
 
                         //PRINT PARA DEBUGGING
@@ -155,16 +181,22 @@ public class CursoDAOImpl implements CursoDAO{
                     }
                     else {
                         inscribir(last_id_curso, id_alumno);
+                        return;
                     }
+                }
+                else {
+                    System.out.println("-- El alumno no puede estar en mas de un curso presencial al mismo tiempo --\n");
                 }
             }
             else {  //El curso es virtual
                 inscribir(last_id_curso, id_alumno);
+                return;
             }
         }
         else{
             System.out.println("\n-- No se ha encontrado el alumno o el curso en nuestra base de datos," +
                     "porfavor, creelos primero o intentelo de nuevo con otros valores --\n");
+            return;
         }
     }
 
@@ -327,7 +359,7 @@ public class CursoDAOImpl implements CursoDAO{
     }
 
     private Curso mapResultSetToCurso(ResultSet resultSet) throws SQLException {
-        ActividadFactory fabrica = new CursosFactory();
+        ActividadFactory fabrica = CursosFactory.instance();
         String tipoCurso = resultSet.getString("tipo_cursado");
         if(tipoCurso.equals("Presencial")){
           CursoPresencial cursoPresencial = (CursoPresencial) fabrica.crearPresencial(resultSet.getString("nombre"),
