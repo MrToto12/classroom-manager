@@ -1,6 +1,7 @@
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class AlumnoFactory implements PersonaFactory, hasLegajo, calcularFecha{
     private static AlumnoFactory instance = null;
@@ -54,6 +55,11 @@ public class AlumnoFactory implements PersonaFactory, hasLegajo, calcularFecha{
     @Override
     public void delete(int dni){
         db.deleteById(db.getIdByDni(dni));
+    }
+
+    @Override
+    public List<Persona> getAllFromDb(){
+        return db.getAll();
     }
     
 }

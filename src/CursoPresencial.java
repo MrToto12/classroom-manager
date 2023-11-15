@@ -19,20 +19,6 @@ import java.time.LocalTime;
         }
 
         @Override
-        public void inscribirAlumno(Persona alumno){
-//            if(this.getAlumnos().size() <= this.capacidadMaxima){
-//                super.inscribirAlumno(alumno);
-//            }
-//            else{
-//                //Capaz podemos aplicar Singleton a la fabrica
-//                ActividadFactory fabrica = new CursosFactory();
-//                Presencial nuevoCurso = fabrica.crearPresencial(this.getNombre(), this.getCodigoDeCatedra()+1, this.getDescripcionDelTema(), this.getObjetivo(), this.getPersonasDirigidas(), this.getCosto(), this.getDiaDeCursado(), this.getHoraDeInicio(), this.getHoraDeCierre());
-//                CursoPresencial nuevoCursoPresencial = (CursoPresencial) nuevoCurso;
-//                nuevoCursoPresencial.inscribirAlumno(alumno);
-//            }
-        }
-
-        @Override
         public String toString(){
             return "Nombre: " + this.getNombre() + "\n"
                     + "Codigo De Catedra: " + String.valueOf(this.getCodigoDeCatedra()) + "\n"

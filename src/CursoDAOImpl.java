@@ -358,6 +358,23 @@ public class CursoDAOImpl implements CursoDAO{
         return cursos;
     }
 
+    public int countAlumnos(int id_catedra){
+        String sql = "SELECT COUNT(*) FROM cursos_alumnos WHERE id_curso=?";
+        try (Connection connection = dbConnect.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, id_catedra);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()){
+                    return resultSet.getInt(1);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
     private Curso mapResultSetToCurso(ResultSet resultSet) throws SQLException {
         ActividadFactory fabrica = CursosFactory.instance();
         String tipoCurso = resultSet.getString("tipo_cursado");

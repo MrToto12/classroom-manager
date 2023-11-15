@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Scanner;
 
 public class DocenteFactory implements PersonaFactory, calcularFecha   {
@@ -55,6 +56,11 @@ public class DocenteFactory implements PersonaFactory, calcularFecha   {
     @Override
     public void delete(int dni){
         db.deleteById(db.getIdByDni(dni));
+    }
+
+    @Override
+    public List<Persona> getAllFromDb(){
+        return db.getAll();
     }
 
 }

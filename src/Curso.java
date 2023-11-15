@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.time.LocalTime;
 import java.time.DayOfWeek;
+import java.util.HashSet;
 import java.util.List;
 
 public abstract class Curso {
@@ -13,9 +14,8 @@ public abstract class Curso {
     private DayOfWeek diaDeCursado;
     private LocalTime horaDeInicio;
     private LocalTime horaDeCierre;
-    private List<Persona> alumnos = new ArrayList<Persona>();
     private Docente docente;
-    private CursoDAO db = CursoDAOImpl.instance();
+    private static CursoDAO db = CursoDAOImpl.instance();
 
     public Curso(String nombre, int codigoDeCatedra, String descripcionDelTema, String objetivo, String personasDirigidas, double costo, DayOfWeek diaDeCursado, LocalTime horaDeInicio, LocalTime horaDeCierre) {
         this.nombre = nombre;
@@ -70,10 +70,6 @@ public abstract class Curso {
         return this.docente;
     }
 
-    public List<Persona> getAlumnos(){
-        return this.alumnos;
-    }
-
     // Setters
     public void setNombre(String nombre) {
         this.nombre = nombre;
@@ -101,13 +97,6 @@ public abstract class Curso {
 
     public void setDocente(Docente docente){
         this.docente = docente;
-
-//        List<Integer> id_catedras = db.getIdsByName(this.nombre);
-//        for (int id_catedra : id_catedras){
-//            db.getById(id_catedra);
-//        }
-//        db.addDocente(db.getIdsByName());
-
     }
 
     public void setDiaDeCursado(DayOfWeek diaDeCursado) {
@@ -122,9 +111,50 @@ public abstract class Curso {
         this.horaDeCierre = horaDeCierre;
     }
 
-    // Otras funciones
-    public void inscribirAlumno(Persona alumno){
-        this.alumnos.add(alumno);
-    }    
+    public static List<Curso> getCursosMasVendidos(){
+        List<Curso> cursos = db.getAll();
+        List<Curso> cursosMasVendidos = new ArrayList<>();
+        List<String> nombreCursosMasVendidos = new ArrayList<>();
+        int maxCantAlumnos = 0;
+
+        for(Curso curso : cursos){
+            int cantAlumnos = 0;
+            List<Integer> idCatedras =  db.getIdsByName(curso.getNombre());
+            for(int idCatedra : idCatedras){
+                cantAlumnos += db.countAlumnos(idCatedra);
+            }
+            if(cantAlumnos > maxCantAlumnos){
+                maxCantAlumnos = cantAlumnos;
+            }
+        }
+
+        System.out.println("MAXIMA CANTIDAD DE ALUMNOS EN UN CURSO: " + maxCantAlumnos);
+
+        for (Curso curso :cursos){
+            int cantAlumnos = 0;
+            List<Integer> idCatedras =  db.getIdsByName(curso.getNombre());
+            for(int idCatedra : idCatedras){
+                cantAlumnos += db.countAlumnos(idCatedra);
+            }
+            if(cantAlumnos == maxCantAlumnos){
+                nombreCursosMasVendidos.add(curso.getNombre());
+            }
+        }
+
+        List<String> nombreCursosMasVendidosSinDuplicados = removeDuplicates(nombreCursosMasVendidos);
+        for(String nombre: nombreCursosMasVendidosSinDuplicados) {
+            cursosMasVendidos.add(db.getById(db.getIdsByName(nombre).get(0)));
+        }
+
+        return cursosMasVendidos;
+    }
+
+    public static <T> List<T> removeDuplicates(List<T> list) {
+        // Create a HashSet to store unique elements
+        HashSet<T> set = new HashSet<>(list);
+
+        // Create a new list from the HashSet (removing duplicates)
+        return new ArrayList<>(set);
+    }
 }
 

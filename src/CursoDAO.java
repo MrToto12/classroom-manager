@@ -12,4 +12,5 @@ public interface CursoDAO {
 //    void delete(Curso curso);
 //    void deleteById(int id);
     List<Integer> getIdsByName(String nombre);
+    int countAlumnos(int id_catedra);
 }

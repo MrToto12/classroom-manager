@@ -1,6 +1,8 @@
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public abstract class Persona {
     private String nombre;
@@ -65,10 +67,24 @@ public abstract class Persona {
         return null;
     }
 
-    public void inscribirACurso(String nombreCurso){
-    }
+    public void inscribirACurso(String nombreCurso){}
+
     public boolean hasDescuento(){
         //Los docentes no acceden al descuento
         return false;
+    }
+
+    public static List<Persona> getCumpleaneros(List<Persona> personas){
+        List<Persona> cumpleaneros = new ArrayList<>();
+        LocalDate hoy = LocalDate.now();
+
+        for(Persona persona : personas){
+            if (persona.getFechaDeNacimiento().getDayOfYear() >= hoy.getDayOfYear() &&
+                    persona.getFechaDeNacimiento().getDayOfYear() <= hoy.plusDays(7).getDayOfYear() ||
+                    persona.getFechaDeNacimiento().getDayOfYear() == hoy.getDayOfYear()) {
+                cumpleaneros.add(persona);
+            }
+        }
+        return cumpleaneros;
     }
 }

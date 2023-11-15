@@ -1,6 +1,8 @@
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class Alumno extends Persona{
 
@@ -26,7 +28,7 @@ public class Alumno extends Persona{
                 " - " + String.valueOf(this.getEdad()) + " años."
                 + "\nDNI: " + String.valueOf(this.getDni())
                 + "\nFecha de nacimiento: " + this.getFechaDeNacimiento()
-                + "\n" + this.legajo;
+                + "\nLegajo: " + this.legajo;
     }
 
     @Override
@@ -38,4 +40,16 @@ public class Alumno extends Persona{
         AlumnoDAOImpl db = AlumnoDAOImpl.instance();
         return db.hasDescuento(db.getIdByDni(this.getDni()));
     }
+
+    public static List<Persona> getAlumnosConDescuento(){
+        System.out.println("Obteniendo alumnos, porfavor espere...");
+        List<Persona> alumnosConDescuento = new ArrayList<>();
+        for(Persona alumno : AlumnoFactory.instance().getAllFromDb()){
+            if(alumno.hasDescuento()){
+                alumnosConDescuento.add(alumno);
+            }
+        }
+        return alumnosConDescuento;
+    }
+
 }
