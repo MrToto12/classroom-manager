@@ -57,7 +57,7 @@ public class DocenteDAOImpl implements PersonaDAO{
     public void delete(Persona persona){
         Docente docente = (Docente) persona;
 
-        String sql = "DELETE FROM docent es WHERE nombre=? AND apellido=? AND dni=? AND fecha_nacimiento=? AND edad=? AND cv=?";
+        String sql = "DELETE FROM docentes es WHERE nombre=? AND apellido=? AND dni=? AND fecha_nacimiento=? AND edad=? AND cv=?";
 
         try (Connection connection = dbConnect.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -184,6 +184,11 @@ public class DocenteDAOImpl implements PersonaDAO{
     public boolean hasDescuento(int dni){
         //Los docentes no tienen descuento
         return false;
+    }
+
+    @Override
+    public Persona getByDni(int dni){
+        return getById(getIdByDni(dni));
     }
 
     private Persona mapResultSetToDocente(ResultSet resultSet) throws SQLException {

@@ -5,6 +5,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Scanner;
 
 public class CursoDAOImpl implements CursoDAO{
     private final DbConnect dbConnect;
@@ -156,9 +157,6 @@ public class CursoDAOImpl implements CursoDAO{
 
             if(curso instanceof CursoPresencial){
                 if(!alumnoInscriptoEnPresencial(id_alumno)){
-
-                    //PRINT PARA DEBUGGING
-                    System.out.println("\n-- Alumno no esta inscripto en ningun presencial --\n");
 
                     //Verifica todas las catedras
                     for(int id_catedra : id_catedras){
@@ -317,23 +315,12 @@ public class CursoDAOImpl implements CursoDAO{
         for(Curso cursoDelDocente : cursosDelDocente){
             if(cursoDelDocente.getDiaDeCursado() == nuevoCurso.getDiaDeCursado()){
 
-                //PRINT FOR DEBUGGING
-                System.out.println("\n-- COINCIDE EL DIA --\n");
-
                 LocalTime horaInicioCursoExistente = cursoDelDocente.getHoraDeInicio();
                 LocalTime horaCierreCursoExistente = cursoDelDocente.getHoraDeCierre();
                 if((horaInicioNuevoCurso.isAfter(horaInicioCursoExistente) || horaInicioNuevoCurso.equals(horaInicioCursoExistente)) && horaInicioNuevoCurso.isBefore(horaCierreCursoExistente.minusMinutes(1))){
-
-                    //PRINT FOR DEBUGGING
-                    System.out.println("\n-- LA HORA DE INICIO ESTA EN EL HORARIO UN CURSO YA EXISTENTE--\n");
-
                     return true;
                 }
                 else if(horaCierreNuevoCurso.isAfter(horaInicioCursoExistente.minusMinutes(1)) && (horaCierreNuevoCurso.isBefore(horaCierreCursoExistente) || horaCierreNuevoCurso.equals(horaCierreCursoExistente))){
-
-                    //PRINT FOR DEBUGGING
-                    System.out.println("\n-- LA HORA DE CIERRE ESTA EN EL HORARIO UN CURSO YA EXISTENTE--\n");
-
                     return true;
                 }
             }
@@ -367,6 +354,70 @@ public class CursoDAOImpl implements CursoDAO{
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()){
                     return resultSet.getInt(1);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public Curso getByName(String nombre){
+        Scanner scanner = new Scanner(System.in);
+        List<Integer> id_catedras = this.getIdsByName(nombre);
+
+        if(id_catedras.isEmpty()){
+            System.out.println("No se ha encontrado el curso con el nombre " + nombre + ", porfavor" +
+                    "verifique que este bien escrito e intente nuevamente");
+        }else{
+            System.out.println("¿Que catedra quiere obtener?\n");
+            for(int id_catedra: id_catedras){
+                System.out.println("Catedra " + this.getById(id_catedra).getCodigoDeCatedra());
+            }
+            System.out.println("\nPorfavor ingrese el numero de la catedra: ");
+
+            int catedraSeleccionada = scanner.nextInt();
+            boolean catedraEncontrada = false;
+
+            for(int id_catedra: id_catedras){
+                if(catedraSeleccionada == this.getById(id_catedra).getCodigoDeCatedra()){
+                    return this.getById(id_catedra);
+                }
+            }
+
+            System.out.println("\nLa catedra seleccionada no existe en la base de datos. Se elige la ultima catedra por defecto.");
+            return this.getById(id_catedras.get(id_catedras.size()-1));
+        }
+        return null;
+    }
+
+    public void delete(Curso curso){
+        this.deleteById(this.getId(curso));
+    }
+
+    public void deleteById(int id){
+        String sql = "DELETE FROM cursos WHERE id=?";
+
+        try (Connection connection = dbConnect.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1,id);
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private int getId(Curso curso){
+        String sql = "SELECT id FROM cursos WHERE nombre=? AND codigo_de_catedra=?";
+        try (Connection connection = dbConnect.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, curso.getNombre());
+            preparedStatement.setInt(2, curso.getCodigoDeCatedra());
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getInt("id");
                 }
             }
         } catch (SQLException e) {

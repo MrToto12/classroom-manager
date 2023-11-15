@@ -189,6 +189,11 @@ public class AlumnoDAOImpl implements PersonaDAO{
         return false;
     }
 
+    @Override
+    public Persona getByDni(int dni){
+        return getById(getIdByDni(dni));
+    }
+
     private Persona mapResultSetToAlumno(ResultSet resultSet) throws SQLException {
         Alumno alumno = new Alumno(
                 resultSet.getString("nombre"),

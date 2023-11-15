@@ -111,6 +111,10 @@ public abstract class Curso {
         this.horaDeCierre = horaDeCierre;
     }
 
+    public String printAllCatedras(){
+        return this.toString();
+    }
+
     public static List<Curso> getCursosMasVendidos(){
         List<Curso> cursos = db.getAll();
         List<Curso> cursosMasVendidos = new ArrayList<>();
@@ -147,6 +151,14 @@ public abstract class Curso {
         }
 
         return cursosMasVendidos;
+    }
+
+    public void inscribirPersona(Persona persona){
+        persona.inscribirACurso(this.getNombre());
+    }
+
+    public void delete(){
+        db.delete(this);
     }
 
     public static <T> List<T> removeDuplicates(List<T> list) {

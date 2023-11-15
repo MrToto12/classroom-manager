@@ -2,6 +2,7 @@ import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Scanner;
 
 public class AlumnoFactory implements PersonaFactory, hasLegajo, calcularFecha{
     private static AlumnoFactory instance = null;
@@ -49,7 +50,7 @@ public class AlumnoFactory implements PersonaFactory, hasLegajo, calcularFecha{
 
     @Override
     public Persona getFromDb(int dni){
-        return db.getById(db.getIdByDni(dni));
+        return db.getByDni(dni);
     }
 
     @Override
@@ -61,5 +62,49 @@ public class AlumnoFactory implements PersonaFactory, hasLegajo, calcularFecha{
     public List<Persona> getAllFromDb(){
         return db.getAll();
     }
-    
+
+    @Override
+    public Persona crearPersonaManual() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Ingrese el nombre del alumno:");
+        String nombre = scanner.nextLine();
+
+        System.out.println("Ingrese el apellido del alumno:");
+        String apellido = scanner.nextLine();
+
+        System.out.println("Ingrese el DNI del alumno:");
+        int dni;
+        while (true) {
+            System.out.println("Ingrese el DNI del alumno:");
+            try {
+                dni = Integer.parseInt(scanner.nextLine());
+                if (String.valueOf(dni).length() == 8 || String.valueOf(dni).length() == 7) {
+                    break;  // Break out of the loop if the input is valid
+                } else {
+                    System.out.println("El DNI debe tener 7 u 8 dígitos. Intente de nuevo.");
+                }
+                break;  // Break out of the loop if the input is valid
+            } catch (NumberFormatException e) {
+                System.out.println("Dato inválido. Ingrese un número válido.");
+            }
+        }
+
+        LocalDate fechaNacimiento;
+        while (true) {
+            System.out.println("Ingrese la fecha de nacimiento del alumno (Formato YYYY-MM-DD):");
+            try {
+                String fechaNacimientoString = scanner.nextLine();
+                fechaNacimiento = LocalDate.parse(fechaNacimientoString);
+                break;  // Break out of the loop if the input is valid
+            } catch (Exception e) {
+                System.out.println("Fecha inválida. Ingrese una fecha en el formato correcto.");
+            }
+        }
+
+        Persona alumno = crearPersona(nombre, apellido, dni, fechaNacimiento);
+
+        System.out.println("Alumno creado con éxito.");
+        return alumno;
+    }
 }

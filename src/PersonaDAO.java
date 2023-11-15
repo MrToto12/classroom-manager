@@ -2,6 +2,7 @@ import java.util.List;
 
 public interface PersonaDAO {
     Persona getById(int id);
+    Persona getByDni(int dni);
     List<Persona> getAll();
     void insert(Persona persona);
     void update(Persona persona);

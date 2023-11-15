@@ -50,7 +50,7 @@ public class DocenteFactory implements PersonaFactory, calcularFecha   {
 
     @Override
     public Persona getFromDb(int dni){
-        return db.getById(db.getIdByDni(dni));
+        return db.getByDni(dni);
     }
 
     @Override
@@ -61,6 +61,51 @@ public class DocenteFactory implements PersonaFactory, calcularFecha   {
     @Override
     public List<Persona> getAllFromDb(){
         return db.getAll();
+    }
+
+    @Override
+    public Persona crearPersonaManual() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Ingrese el nombre del docente:");
+        String nombre = scanner.nextLine();
+
+        System.out.println("Ingrese el apellido del docente:");
+        String apellido = scanner.nextLine();
+
+        System.out.println("Ingrese el DNI del docente:");
+        int dni;
+        while (true) {
+            System.out.println("Ingrese el DNI del docente:");
+            try {
+                dni = Integer.parseInt(scanner.nextLine());
+                if (String.valueOf(dni).length() == 8 || String.valueOf(dni).length() == 7) {
+                    break;  // Break out of the loop if the input is valid
+                } else {
+                    System.out.println("El DNI debe tener 7 u 8 dígitos. Intente de nuevo.");
+                }
+                break;  // Break out of the loop if the input is valid
+            } catch (NumberFormatException e) {
+                System.out.println("Dato inválido. Ingrese un número válido.");
+            }
+        }
+
+        LocalDate fechaNacimiento;
+        while (true) {
+            System.out.println("Ingrese la fecha de nacimiento del docente (Formato YYYY-MM-DD):");
+            try {
+                String fechaNacimientoString = scanner.nextLine();
+                fechaNacimiento = LocalDate.parse(fechaNacimientoString);
+                break;  // Break out of the loop if the input is valid
+            } catch (Exception e) {
+                System.out.println("Fecha inválida. Ingrese una fecha en el formato correcto.");
+            }
+        }
+
+        Persona docente = crearPersona(nombre, apellido, dni, fechaNacimiento);
+
+        System.out.println("Docente creado con éxito.");
+        return docente;
     }
 
 }
