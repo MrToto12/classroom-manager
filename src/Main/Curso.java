@@ -16,19 +16,21 @@ public abstract class Curso {
     private String objetivo;
     private String personasDirigidas;
     private double costo;
+    private String linkMeet;
     private DayOfWeek diaDeCursado;
     private LocalTime horaDeInicio;
     private LocalTime horaDeCierre;
     private Docente docente;
     private static CursoDAO db = CursoDAOImpl.instance();
 
-    public Curso(String nombre, int codigoDeCatedra, String descripcionDelTema, String objetivo, String personasDirigidas, double costo, DayOfWeek diaDeCursado, LocalTime horaDeInicio, LocalTime horaDeCierre) {
+    public Curso(String nombre, int codigoDeCatedra, String descripcionDelTema, String objetivo, String personasDirigidas, double costo, String linkMeet, DayOfWeek diaDeCursado, LocalTime horaDeInicio, LocalTime horaDeCierre) {
         this.nombre = nombre;
         this.codigoDeCatedra = codigoDeCatedra;
         this.descripcionDelTema = descripcionDelTema;
         this.objetivo = objetivo;
         this.personasDirigidas = personasDirigidas;
         this.costo = costo;
+        this.linkMeet = "";
         this.diaDeCursado = diaDeCursado;
         this.horaDeInicio = horaDeInicio;
         this.horaDeCierre = horaDeCierre;
@@ -164,6 +166,9 @@ public abstract class Curso {
 
     public void delete(){
         db.delete(this);
+    }
+
+    public void printConDescuento(){
     }
 
     public static <T> List<T> removeDuplicates(List<T> list) {

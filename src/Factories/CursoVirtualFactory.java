@@ -4,9 +4,12 @@ import Db.DAO.CursoDAO;
 import Db.DAO.CursoDAOImpl;
 import Main.Curso;
 import Main.CursoVirtual;
+import Main.DayOfWeekTranslator;
 
 import java.time.DayOfWeek;
 import java.time.LocalTime;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class CursoVirtualFactory extends CursosFactory{
@@ -78,9 +81,9 @@ public class CursoVirtualFactory extends CursosFactory{
 
         DayOfWeek diaDeCursado;
         while (true) {
-            System.out.println("Ingrese el día de cursado del curso (LUNES, MARTES, ..., DOMINGO):");
+            System.out.println("Ingrese el día de cursado del curso en español (Lunes, Martes, ..., Domingo):");
             try {
-                diaDeCursado = DayOfWeek.valueOf(scanner.nextLine());
+                diaDeCursado = DayOfWeekTranslator.getDayOfWeek(scanner.nextLine());
                 break;
             } catch (IllegalArgumentException e) {
                 System.out.println("Día de cursado inválido. Ingrese un día válido.");
@@ -115,5 +118,4 @@ public class CursoVirtualFactory extends CursosFactory{
 
             return this.crearCurso(nombre, codigoDeCatedra, descripcionDelTema, objetivo, personasDirigidas, costo, linkMeet, diaDeCursado, horaDeInicio, horaDeCierre);
         }
-
     }

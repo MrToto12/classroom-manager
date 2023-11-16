@@ -1,5 +1,7 @@
 package Main.Menus;
 
+import Db.DAO.CursoDAOImpl;
+import Db.DAO.DocenteDAOImpl;
 import Factories.*;
 import Main.Alumno;
 import Main.Curso;
@@ -55,6 +57,7 @@ public class MainMenu {
                             System.out.println("Entrada inválida. Por favor, ingrese 1 o 2.");
                         }
                     }
+                    break;
                 case 4:
                     List<Persona> alumnos = alumnoFactory.getAllFromDb();
                     System.out.println("---- Listando Todos Los Alumnos ----");
@@ -85,11 +88,13 @@ public class MainMenu {
                         docente = docenteFactory.getFromDb(dniDocente);
                         if(docente == null){
                             System.out.println("No se ha encontrado el docente en nuestra base de datos, compruebe" +
-                                    "el DNI e intente nuevamente.");
+                                    " el DNI e intente nuevamente.");
                             break;
                         }
+                        else {
+                            MenuDocente menuDocente = new MenuDocente(docente);
+                        }
                     }
-                    MenuDocente menuDocente = new MenuDocente(docente);
                     break;
                 case 8:
                     // Acciones con un alumno (inscribir, listar cursos, etc)
@@ -100,11 +105,12 @@ public class MainMenu {
                         alumno = alumnoFactory.getFromDb(dniAlumno);
                         if(alumno == null){
                             System.out.println("No se ha encontrado el alumno en nuestra base de datos, compruebe" +
-                                    "el DNI e intente nuevamente.");
+                                    " el DNI e intente nuevamente.");
                             break;
+                        } else {
+                            MenuAlumno menuAlumno = new MenuAlumno(alumno);
                         }
                     }
-                    MenuAlumno menuAlumno = new MenuAlumno(alumno);
                     break;
                 case 9:
                     printCumpleaneros();
@@ -114,6 +120,9 @@ public class MainMenu {
                     break;
                 case 11:
                     printCursosMasVendidos();
+                    break;
+                case 12:
+                    eliminarCurso();
                     break;
                 case 0:
                     System.out.println("Saliendo del programa. ¡Hasta luego!");
@@ -138,6 +147,7 @@ public class MainMenu {
         System.out.println("9. Mostrar alumnos y docentes que cumplen años en la proxima semana");
         System.out.println("10. Mostrar alumnos con acceso al descuento del 20%");
         System.out.println("11. Mostrar cursos mas vendidos");
+        System.out.println("12. Eliminar Curso");
         System.out.println("0. Salir");
         System.out.println("Ingrese el número de la opción deseada:");
     }
@@ -201,5 +211,37 @@ public class MainMenu {
             }
         }
 
+    }
+
+    private static void eliminarCurso(){
+        CursoDAOImpl db = CursoDAOImpl.instance();
+        Scanner scanner = new Scanner(System.in);
+        String nombreCurso = "";
+        System.out.println("Ingrese el nombre del curso a eliminar:");
+        nombreCurso = scanner.nextLine();
+        if (CursoDAOImpl.instance().getIdsByName(nombreCurso).size() != 0) {
+            List<Integer> id_catedras = db.getIdsByName(nombreCurso);
+
+            System.out.println("¿Que catedra quiere eliminar?");
+            for(int id_catedra: id_catedras){
+                System.out.println("Catedra " + db.getById(id_catedra).getCodigoDeCatedra());
+            }
+            System.out.println("\nPorfavor ingrese el numero de la catedra: ");
+
+            int catedraSeleccionada = scanner.nextInt();
+            boolean catedraEncontrada = false;
+
+            for(int id_catedra: id_catedras){
+                if(catedraSeleccionada == db.getById(id_catedra).getCodigoDeCatedra()){
+                    db.deleteById(id_catedra);
+                    System.out.println("El curso ha sido eliminado con exito!");
+                    return;
+                }
+            }
+
+            System.out.println("\nLa catedra seleccionada no existe en la base de datos. Porfavor intentelo de nuevo.\n");
+            return;
+        }
+        System.out.println("No se ha encontrado el curso con el nombre " + nombreCurso + ", porfavor intente de nuevo");
     }
 }

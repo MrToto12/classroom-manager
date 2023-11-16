@@ -52,7 +52,7 @@ public class Docente extends Persona {
         Scanner scanner = new Scanner(System.in);
         List<Integer> id_catedras = db.getIdsByName(nombreCurso);
 
-        System.out.println("¿En que catedra quiere inscribir al profesor?\n");
+        System.out.println("¿En que catedra quiere inscribir al profesor?");
         for(int id_catedra: id_catedras){
             System.out.println("Catedra " + db.getById(id_catedra).getCodigoDeCatedra());
         }

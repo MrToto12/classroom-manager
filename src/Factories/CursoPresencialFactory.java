@@ -4,9 +4,12 @@ import Db.DAO.CursoDAO;
 import Db.DAO.CursoDAOImpl;
 import Main.Curso;
 import Main.CursoPresencial;
+import Main.DayOfWeekTranslator;
 
 import java.time.DayOfWeek;
 import java.time.LocalTime;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class CursoPresencialFactory extends CursosFactory{
@@ -26,7 +29,7 @@ public class CursoPresencialFactory extends CursosFactory{
 
     @Override
     public Curso crearCurso(String nombre, int codigoDeCatedra, String descripcionDelTema, String objetivo, String personasDirigidas, double costo, String linkMeet, DayOfWeek diaDeCursado, LocalTime horaDeInicio, LocalTime horaDeCierre) {
-        Curso curso = new CursoPresencial(nombre, codigoDeCatedra, descripcionDelTema, objetivo, personasDirigidas, costo, diaDeCursado, horaDeInicio, horaDeCierre);
+        Curso curso = new CursoPresencial(nombre, codigoDeCatedra, descripcionDelTema, objetivo, personasDirigidas, costo, "", diaDeCursado, horaDeInicio, horaDeCierre);
 
         if(!db.existsInDb(nombre, codigoDeCatedra)){
             db.insert("Presencial", curso);
@@ -77,9 +80,9 @@ public class CursoPresencialFactory extends CursosFactory{
 
         DayOfWeek diaDeCursado;
         while (true) {
-            System.out.println("Ingrese el día de cursado del curso (LUNES, MARTES, ..., DOMINGO):");
+            System.out.println("Ingrese el día de cursado del curso en español (Lunes, Martes, ..., Domingo):");
             try {
-                diaDeCursado = DayOfWeek.valueOf(scanner.nextLine());
+                diaDeCursado = DayOfWeekTranslator.getDayOfWeek(scanner.nextLine());
                 break;
             } catch (IllegalArgumentException e) {
                 System.out.println("Día de cursado inválido. Ingrese un día válido.");

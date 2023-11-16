@@ -86,7 +86,7 @@ public class MenuDocente {
                 this.docente.inscribirACurso(nombreCurso);
                 return;
             }
-            System.out.println("No se ha encontrado el curso con el nombre" + nombreCurso + ", porfavor intente de nuevo");
+            System.out.println("No se ha encontrado el curso con el nombre " + nombreCurso + ", porfavor intente de nuevo");
     }
 
     private void eliminarDocente() {

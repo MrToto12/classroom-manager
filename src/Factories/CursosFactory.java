@@ -15,7 +15,8 @@ public abstract class CursosFactory {
     }
 
     public static Curso getFromDb(String nombre){
-        return db.getByName(nombre);
+        Curso curso = db.getByName(nombre);
+        return curso;
     }
 
     public static void deleteByName(String nombre){

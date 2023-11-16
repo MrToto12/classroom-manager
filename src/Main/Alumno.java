@@ -28,11 +28,16 @@ public class Alumno extends Persona {
 
     @Override
     public String toString(){
-        return "\nAlumno: " + this.getNombre() + " " + this.getApellido() +
+        String result = "\nAlumno: " + this.getNombre() + " " + this.getApellido() +
                 " - " + String.valueOf(this.getEdad()) + " años."
                 + "\nDNI: " + String.valueOf(this.getDni())
                 + "\nFecha de nacimiento: " + this.getFechaDeNacimiento()
                 + "\nLegajo: " + this.legajo;
+        if(this.hasDescuento()){
+            result+= "\nEl alumno accede al 20% de descuento al estar inscripto a mas de un curso!";
+        }
+
+        return result;
     }
 
     @Override

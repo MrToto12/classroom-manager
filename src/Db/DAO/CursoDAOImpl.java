@@ -7,7 +7,9 @@ import Main.CursoVirtual;
 import Factories.CursoPresencialFactory;
 import Factories.CursoVirtualFactory;
 import Factories.CursosFactory;
+import Main.Docente;
 
+import javax.print.Doc;
 import java.sql.*;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
@@ -55,6 +57,8 @@ public class CursoDAOImpl implements CursoDAO{
             if(tipo_curso == "Virtual"){
                 CursoVirtual cursoVirtual = (CursoVirtual) curso;
                 preparedStatement.setString(11, cursoVirtual.getLinkMeet());
+            } else {
+                preparedStatement.setString(11, "");
             }
 
             preparedStatement.executeUpdate();
@@ -467,6 +471,7 @@ public class CursoDAOImpl implements CursoDAO{
                     DayOfWeek.valueOf(resultSet.getString("dia_de_cursado")),
                     LocalTime.parse(resultSet.getString("hora_inicio")),
                     LocalTime.parse(resultSet.getString("hora_cierre")));
+          cursoPresencial.setDocente((Docente)docentes_db.getById(resultSet.getInt("id_docente")));
             return cursoPresencial;
         }
         else{
@@ -481,6 +486,7 @@ public class CursoDAOImpl implements CursoDAO{
                     DayOfWeek.valueOf(resultSet.getString("dia_de_cursado")),
                     LocalTime.parse(resultSet.getString("hora_inicio")),
                     LocalTime.parse(resultSet.getString("hora_cierre")));
+            cursoVirtual.setDocente((Docente)docentes_db.getById(resultSet.getInt("id_docente")));
             return cursoVirtual;
         }
 

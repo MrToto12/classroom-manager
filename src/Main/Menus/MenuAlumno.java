@@ -72,8 +72,15 @@ public class MenuAlumno {
             System.out.println("El alumno no esta inscripto en ningun curso!");
             return;
         }
-        for(Curso curso : cursos){
-            System.out.println(curso);
+        if(alumno.hasDescuento()){
+            System.out.println("El alumno accede al 20% de descuento al estar inscripto a mas de un curso!\"");
+            for(Curso curso : cursos){
+                curso.printConDescuento();;
+            }
+        }else {
+            for(Curso curso : cursos){
+                System.out.println(curso);
+            }
         }
     }
 
@@ -86,7 +93,7 @@ public class MenuAlumno {
             this.alumno.inscribirACurso(nombreCurso);
             return;
         }
-        System.out.println("No se ha encontrado el curso con el nombre" + nombreCurso + ", porfavor intente de nuevo");
+        System.out.println("No se ha encontrado el curso con el nombre " + nombreCurso + ", porfavor intente de nuevo");
     }
 
     private void eliminarAlumno() {
