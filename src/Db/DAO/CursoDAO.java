@@ -1,3 +1,7 @@
+package Db.DAO;
+
+import Main.Curso;
+
 import java.util.List;
 
 public interface CursoDAO {

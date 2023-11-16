@@ -1,37 +1,32 @@
+package Factories;
+
+import Db.DAO.CursoDAO;
+import Db.DAO.CursoDAOImpl;
+import Main.Curso;
+import Main.CursoPresencial;
+
 import java.time.DayOfWeek;
 import java.time.LocalTime;
-import java.util.List;
 import java.util.Scanner;
 
-public class CursosFactory extends ActividadFactory {
-    private static CursosFactory instance = null;
-    public CursoDAO db = CursoDAOImpl.instance();
+public class CursoPresencialFactory extends CursosFactory{
+    private static CursoPresencialFactory instance = null;
+    private CursoDAO db = null;
 
-    private CursosFactory(){}
+    private CursoPresencialFactory(){
+        this.db = CursoDAOImpl.instance();
+    }
 
-    public static CursosFactory instance(){
+    public static CursoPresencialFactory instance(){
         if(instance == null){
-            instance = new CursosFactory();
+            instance = new CursoPresencialFactory();
         }
         return instance;
     }
 
     @Override
-    public Virtual crearVirtual(String nombre, int codigoDeCatedra, String descripcionDelTema, String objetivo, String personasDirigidas, double costo, String linkeMeet, DayOfWeek diaDeCursado, LocalTime horaDeInicio, LocalTime horaDeCierre){
-        CursoVirtual curso = new CursoVirtual(nombre, codigoDeCatedra, descripcionDelTema, objetivo, personasDirigidas, costo, linkeMeet, diaDeCursado, horaDeInicio, horaDeCierre);
-
-        if(!db.existsInDb(nombre, codigoDeCatedra)){
-            db.insert("Virtual", curso);
-
-            System.out.println("-- El curso se ha insertado en la base de datos correctamente --\n");
-        }
-
-        return curso;
-    }
-
-    @Override
-    public Presencial crearPresencial(String nombre, int codigoDeCatedra, String descripcionDelTema, String objetivo, String personasDirigidas, double costo, DayOfWeek diaDeCursado, LocalTime horaDeInicio, LocalTime horaDeCierre){
-        CursoPresencial curso = new CursoPresencial(nombre, codigoDeCatedra, descripcionDelTema, objetivo, personasDirigidas, costo, diaDeCursado, horaDeInicio, horaDeCierre);
+    public Curso crearCurso(String nombre, int codigoDeCatedra, String descripcionDelTema, String objetivo, String personasDirigidas, double costo, String linkMeet, DayOfWeek diaDeCursado, LocalTime horaDeInicio, LocalTime horaDeCierre) {
+        Curso curso = new CursoPresencial(nombre, codigoDeCatedra, descripcionDelTema, objetivo, personasDirigidas, costo, diaDeCursado, horaDeInicio, horaDeCierre);
 
         if(!db.existsInDb(nombre, codigoDeCatedra)){
             db.insert("Presencial", curso);
@@ -42,34 +37,9 @@ public class CursosFactory extends ActividadFactory {
         return curso;
     }
 
-    public Curso getFromDb(String nombre){
-        return db.getByName(nombre);
-    }
-
-    public void deleteByName(String nombre){
-        db.delete(db.getByName(nombre));
-    }
-
-    public Curso crearCursoManual() {
+    @Override
+     public Curso crearCursoManual() {
         Scanner scanner = new Scanner(System.in);
-
-        int tipoCurso;
-        while (true) {
-            System.out.println("¿Qué tipo de curso desea crear?");
-            System.out.println("1. Presencial");
-            System.out.println("2. Virtual");
-
-            try {
-                tipoCurso = Integer.parseInt(scanner.nextLine());
-                if (tipoCurso == 1 || tipoCurso == 2) {
-                    break;
-                } else {
-                    System.out.println("Por favor, ingrese 1 o 2.");
-                }
-            } catch (NumberFormatException e) {
-                System.out.println("Entrada inválida. Por favor, ingrese 1 o 2.");
-            }
-        }
 
         System.out.println("Ingrese el nombre del curso:");
         String nombre = scanner.nextLine();
@@ -138,20 +108,7 @@ public class CursosFactory extends ActividadFactory {
             }
         }
 
-        if (tipoCurso == 1) {
-            return (CursoPresencial) crearPresencial(nombre, codigoDeCatedra, descripcionDelTema, objetivo, personasDirigidas, costo, diaDeCursado, horaDeInicio, horaDeCierre);
-        } else if (tipoCurso == 2) {
-            System.out.println("Ingrese el link de Meet del curso:");
-            String linkMeet = scanner.nextLine();
-
-            return (CursoVirtual) crearVirtual(nombre, codigoDeCatedra, descripcionDelTema, objetivo, personasDirigidas, costo, linkMeet, diaDeCursado, horaDeInicio, horaDeCierre);
-        } else {
-            System.out.println("Tipo de curso no válido. Creación cancelada.");
-            return null;
-        }
+        return this.crearCurso(nombre, codigoDeCatedra, descripcionDelTema, objetivo, personasDirigidas, costo, "", diaDeCursado, horaDeInicio, horaDeCierre);
     }
 
-    public List<Curso> getAllFromDb(){
-        return db.getAll();
-    }
 }

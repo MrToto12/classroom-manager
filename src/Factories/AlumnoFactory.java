@@ -1,45 +1,52 @@
+package Factories;
+
+import Db.DAO.AlumnoDAOImpl;
+import Db.DAO.PersonaDAO;
+import Main.Alumno;
+import Main.Persona;
+import Main.calcularFecha;
+import Main.hasLegajo;
+
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 
-public class DocenteFactory implements PersonaFactory, calcularFecha   {
-    public static DocenteFactory instance = null;
-    public PersonaDAO db = DocenteDAOImpl.instance();
+public class AlumnoFactory implements PersonaFactory, hasLegajo, calcularFecha {
+    private static AlumnoFactory instance = null;
+    public PersonaDAO db = AlumnoDAOImpl.instance();
 
-    private DocenteFactory(){}
+    private AlumnoFactory(){}
 
-    public static DocenteFactory instance(){
+    public static AlumnoFactory instance(){
         if(instance == null){
-            instance = new DocenteFactory();
-        }    
+            instance = new AlumnoFactory();
+        }
         return instance;
     }
 
     @Override
     public Persona crearPersona(String nombre, String apellido, int dni, LocalDate  fechaDeNacimeinto){
-        Docente docente = new Docente(nombre, apellido, dni, fechaDeNacimeinto, calcularFecha(fechaDeNacimeinto));
-        docente.setCv(crearCv());
-        if(!db.existsInDb(dni)) {
-            db.insert(docente);
+        Alumno alumno = new Alumno(nombre, apellido, dni, fechaDeNacimeinto, calcularFecha(fechaDeNacimeinto));
+        alumno.setLegajo(crearLegajo(dni));
+
+
+        if(!db.existsInDb(dni)){
+            db.insert(alumno);
         }
-        return docente;
+        return alumno;
     }
 
-    private CurriculumVitae crearCv(){
-        Scanner scanner = new Scanner(System.in);
-        String nivelDeEducacion, descripcion, rubro;
-        System.out.println("---- Ingrese los datos del CV del docente ----\n");
+    @Override
+    public String crearLegajo(int dni){
+        int ultimosTresDigitos = dni % 1000;
+        int autoIncremental = db.getLastPersonaId();
 
-        System.out.println("Ingrese el nivel de educacion del docente: ");
-        nivelDeEducacion = scanner.nextLine();
+        LocalDate currentDate = LocalDate.now();
+        int currentDay = currentDate.getDayOfMonth();
 
-        System.out.println("Ingrese la descripcion del Curriculum Vitae: ");
-        descripcion = scanner.nextLine();
+        String legajo = String.valueOf(ultimosTresDigitos) + "-" + String.valueOf(currentDay) + "-" + String.valueOf(autoIncremental);
 
-        System.out.println("Ingrese el rubro que puede dictar (Ejemplo: Ciencias Sociales, Matematicas, Economia): ");
-        rubro = scanner.nextLine();
-
-        return new CurriculumVitae(nivelDeEducacion, descripcion, rubro);
+        return legajo;
     }
 
     @Override
@@ -67,16 +74,16 @@ public class DocenteFactory implements PersonaFactory, calcularFecha   {
     public Persona crearPersonaManual() {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Ingrese el nombre del docente:");
+        System.out.println("Ingrese el nombre del alumno:");
         String nombre = scanner.nextLine();
 
-        System.out.println("Ingrese el apellido del docente:");
+        System.out.println("Ingrese el apellido del alumno:");
         String apellido = scanner.nextLine();
 
-        System.out.println("Ingrese el DNI del docente:");
+        System.out.println("Ingrese el DNI del alumno:");
         int dni;
         while (true) {
-            System.out.println("Ingrese el DNI del docente:");
+            System.out.println("Ingrese el DNI del alumno:");
             try {
                 dni = Integer.parseInt(scanner.nextLine());
                 if (String.valueOf(dni).length() == 8 || String.valueOf(dni).length() == 7) {
@@ -92,7 +99,7 @@ public class DocenteFactory implements PersonaFactory, calcularFecha   {
 
         LocalDate fechaNacimiento;
         while (true) {
-            System.out.println("Ingrese la fecha de nacimiento del docente (Formato YYYY-MM-DD):");
+            System.out.println("Ingrese la fecha de nacimiento del alumno (Formato YYYY-MM-DD):");
             try {
                 String fechaNacimientoString = scanner.nextLine();
                 fechaNacimiento = LocalDate.parse(fechaNacimientoString);
@@ -102,10 +109,9 @@ public class DocenteFactory implements PersonaFactory, calcularFecha   {
             }
         }
 
-        Persona docente = crearPersona(nombre, apellido, dni, fechaNacimiento);
+        Persona alumno = crearPersona(nombre, apellido, dni, fechaNacimiento);
 
-        System.out.println("Docente creado con éxito.");
-        return docente;
+        System.out.println("Alumno creado con éxito.");
+        return alumno;
     }
-
 }

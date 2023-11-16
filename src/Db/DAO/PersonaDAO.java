@@ -1,3 +1,7 @@
+package Db.DAO;
+
+import Main.Persona;
+
 import java.util.List;
 
 public interface PersonaDAO {

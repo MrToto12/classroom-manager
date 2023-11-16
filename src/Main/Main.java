@@ -1,3 +1,7 @@
+package Main;
+
+import Factories.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -6,7 +10,8 @@ public class Main {
     public static void main(String[] args) throws Exception {
         PersonaFactory alumnoFactory = AlumnoFactory.instance();
         PersonaFactory docenteFactory = DocenteFactory.instance();
-        CursosFactory cursosFactory = CursosFactory.instance();
+        CursosFactory cursoPresencialFactory = CursoPresencialFactory.instance();
+        CursosFactory cursoVirtualFactory = CursoVirtualFactory.instance();
 
         menu();
 
@@ -16,8 +21,9 @@ public class Main {
     private static void printConsultasConsigna(){
         PersonaFactory alumnoFactory = AlumnoFactory.instance();
         PersonaFactory docenteFactory = DocenteFactory.instance();
-        CursoDAO db_cursos = CursoDAOImpl.instance();
-        ActividadFactory fabricaCursos = CursosFactory.instance();
+        CursosFactory cursoPresencialFactory = CursoPresencialFactory.instance();
+        CursosFactory cursoVirtualFactory = CursoVirtualFactory.instance();
+
 
         List<Persona> alumnos = alumnoFactory.getAllFromDb();
         List<Persona> docentes = docenteFactory.getAllFromDb();
@@ -59,7 +65,8 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         PersonaFactory alumnoFactory = AlumnoFactory.instance();
         PersonaFactory docenteFactory = DocenteFactory.instance();
-        CursosFactory cursosFactory = CursosFactory.instance();
+        CursosFactory cursoPresencialFactory = CursoPresencialFactory.instance();
+        CursosFactory cursoVirtualFactory = CursoVirtualFactory.instance();
 
         while (true) {
             printMenu();
@@ -77,8 +84,27 @@ public class Main {
                     break;
                 case 3:
                     System.out.println("---- Crear Curso ----");
-                    cursosFactory.crearCursoManual();
-                    break;
+                    int tipoCurso;
+                    while (true) {
+                        System.out.println("¿Qué tipo de curso desea crear?");
+                        System.out.println("1. Presencial");
+                        System.out.println("2. Virtual");
+                        try {
+                            tipoCurso = Integer.parseInt(scanner.nextLine());
+                            if (tipoCurso == 1){
+                                CursoPresencialFactory.instance().crearCursoManual();
+                                break;
+                            }
+                            else if(tipoCurso == 2) {
+                                CursoVirtualFactory.instance().crearCursoManual();
+                                break;
+                            } else {
+                                System.out.println("Por favor, ingrese 1 o 2.");
+                            }
+                        } catch (NumberFormatException e) {
+                            System.out.println("Entrada inválida. Por favor, ingrese 1 o 2.");
+                        }
+                    }
                 case 4:
                     List<Persona> alumnos = alumnoFactory.getAllFromDb();
                     System.out.println("---- Listando Todos Los Alumnos ----");
@@ -94,7 +120,7 @@ public class Main {
                     }
                     break;
                 case 6:
-                    List<Curso> cursos = cursosFactory.getAllFromDb();
+                    List<Curso> cursos = CursosFactory.getAllFromDb();
                     System.out.println("---- Listando Todos Los Cursos ----");
                     for (Curso curso : cursos) {
                         System.out.println(curso.printAllCatedras());

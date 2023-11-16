@@ -1,3 +1,8 @@
+package Main;
+
+import Db.DAO.CursoDAO;
+import Db.DAO.CursoDAOImpl;
+
 import java.util.ArrayList;
 import java.time.LocalTime;
 import java.time.DayOfWeek;

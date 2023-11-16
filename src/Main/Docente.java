@@ -1,8 +1,13 @@
+package Main;
+
+import Db.DAO.CursoDAOImpl;
+import Db.DAO.DocenteDAOImpl;
+
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 
-public class Docente extends Persona{
+public class Docente extends Persona {
     CurriculumVitae cv;
 
     public Docente(String nombre, String apellido, int dni, LocalDate fechaDeNacimeinto, int edad){
@@ -26,7 +31,7 @@ public class Docente extends Persona{
         String descripcion = lines[2].substring("Descripcion:".length());
         String rubro = lines[3].substring("El rubro en el que me especializo es: ".length());
 
-        // Create and return a new CurriculumVitae object
+        // Create and return a new Main.CurriculumVitae object
         this.cv = new CurriculumVitae(nivelDeEducacion, descripcion, rubro);
 
     }

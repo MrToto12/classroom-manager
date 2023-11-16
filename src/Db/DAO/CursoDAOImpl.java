@@ -1,4 +1,13 @@
-import DbConnect.DbConnect;
+package Db.DAO;
+
+import Db.DbConnect.DbConnect;
+import Main.Curso;
+import Main.CursoPresencial;
+import Main.CursoVirtual;
+import Factories.CursoPresencialFactory;
+import Factories.CursoVirtualFactory;
+import Factories.CursosFactory;
+
 import java.sql.*;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
@@ -427,22 +436,24 @@ public class CursoDAOImpl implements CursoDAO{
     }
 
     private Curso mapResultSetToCurso(ResultSet resultSet) throws SQLException {
-        ActividadFactory fabrica = CursosFactory.instance();
+        CursosFactory fabricaPresencial = CursoPresencialFactory.instance();
+        CursosFactory fabricaVirtual = CursoVirtualFactory.instance();
         String tipoCurso = resultSet.getString("tipo_cursado");
         if(tipoCurso.equals("Presencial")){
-          CursoPresencial cursoPresencial = (CursoPresencial) fabrica.crearPresencial(resultSet.getString("nombre"),
+          Curso cursoPresencial = fabricaPresencial.crearCurso(resultSet.getString("nombre"),
                     resultSet.getInt("codigo_de_catedra"),
                     resultSet.getString("descripcion"),
                     resultSet.getString("objetivo"),
                     resultSet.getString("personas_dirigidas"),
                     resultSet.getDouble("costo"),
+                    "", //Al ser presencial no tiene link de meet
                     DayOfWeek.valueOf(resultSet.getString("dia_de_cursado")),
                     LocalTime.parse(resultSet.getString("hora_inicio")),
                     LocalTime.parse(resultSet.getString("hora_cierre")));
             return cursoPresencial;
         }
         else{
-            CursoVirtual cursoVirtual = (CursoVirtual) fabrica.crearVirtual(
+            Curso cursoVirtual = fabricaVirtual.crearCurso(
                     resultSet.getString("nombre"),
                     resultSet.getInt("codigo_de_catedra"),
                     resultSet.getString("descripcion"),

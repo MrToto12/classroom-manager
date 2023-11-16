@@ -1,8 +1,9 @@
+package Main;
+
 import java.time.DayOfWeek;
 import java.time.LocalTime;
-import java.util.Calendar;
 
-public class CursoVirtual extends Curso implements Virtual {
+public class CursoVirtual extends Curso{
     
     private String linkMeet;
 
@@ -11,12 +12,10 @@ public class CursoVirtual extends Curso implements Virtual {
         this.linkMeet = linkMeet;
     }
 
-    @Override
     public void setLinkMeet(String LinkMeet){
         this.linkMeet = linkMeet;
     }
 
-    @Override
     public String getLinkMeet(){
         return this.linkMeet;
     }

@@ -1,19 +1,21 @@
+package Main;
+
+import Db.DAO.CursoDAOImpl;
+
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 
-    public class CursoPresencial extends Curso implements Presencial {
+    public class CursoPresencial extends Curso {
         private int capacidadMaxima = 15; // Valor por defecto dado en el planteo
 
         public CursoPresencial(String nombre, int codigoDeCatedra, String descripcionDelTema, String objetivo, String personasDirigidas, double costo, DayOfWeek diaDeCursado, LocalTime horaDeInicio, LocalTime horaDeCierre) {
             super(nombre, codigoDeCatedra, descripcionDelTema, objetivo, personasDirigidas, costo, diaDeCursado, horaDeInicio, horaDeCierre);
         }
 
-        @Override
         public void setCapacidadMaxima(int capacidadMaxima) {
             this.capacidadMaxima = capacidadMaxima;
         }
 
-        @Override
         public int getCapacidadMaxima(){
             return this.capacidadMaxima;
         }

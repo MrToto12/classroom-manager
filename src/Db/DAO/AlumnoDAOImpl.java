@@ -1,4 +1,9 @@
-import DbConnect.DbConnect;
+package Db.DAO;
+
+import Db.DbConnect.DbConnect;
+import Main.Alumno;
+import Main.Persona;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
