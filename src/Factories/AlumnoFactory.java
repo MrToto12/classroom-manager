@@ -80,7 +80,6 @@ public class AlumnoFactory implements PersonaFactory, hasLegajo, calcularFecha {
         System.out.println("Ingrese el apellido del alumno:");
         String apellido = scanner.nextLine();
 
-        System.out.println("Ingrese el DNI del alumno:");
         int dni;
         while (true) {
             System.out.println("Ingrese el DNI del alumno:");
@@ -91,7 +90,6 @@ public class AlumnoFactory implements PersonaFactory, hasLegajo, calcularFecha {
                 } else {
                     System.out.println("El DNI debe tener 7 u 8 dígitos. Intente de nuevo.");
                 }
-                break;  // Break out of the loop if the input is valid
             } catch (NumberFormatException e) {
                 System.out.println("Dato inválido. Ingrese un número válido.");
             }

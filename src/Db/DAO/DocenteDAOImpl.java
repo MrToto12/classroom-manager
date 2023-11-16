@@ -62,18 +62,11 @@ public class DocenteDAOImpl implements PersonaDAO{
     public void delete(Persona persona){
         Docente docente = (Docente) persona;
 
-        String sql = "DELETE FROM docentes es WHERE nombre=? AND apellido=? AND dni=? AND fecha_nacimiento=? AND edad=? AND cv=?";
+        String sql = "DELETE FROM docentes es WHERE dni=?";
 
         try (Connection connection = dbConnect.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-
-            preparedStatement.setString(1, docente.getNombre());
-            preparedStatement.setString(2, docente.getApellido());
-            preparedStatement.setInt(3, docente.getDni());
-            preparedStatement.setDate(4, Date.valueOf(docente.getFechaDeNacimiento()));
-            preparedStatement.setInt(5, docente.getEdad());
-            preparedStatement.setString(6, docente.getCv().toString());
-
+            preparedStatement.setInt(1, docente.getDni());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

@@ -56,4 +56,8 @@ public class Alumno extends Persona {
         return alumnosConDescuento;
     }
 
+    @Override
+    public List<Curso> getCursos(){
+        return CursoDAOImpl.instance().getCursosByAlumno(AlumnoDAOImpl.instance().getIdByDni(this.getDni()));
+    }
 }

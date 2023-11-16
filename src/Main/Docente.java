@@ -71,5 +71,9 @@ public class Docente extends Persona {
         System.out.println("\nLa catedra seleccionada no existe en la base de datos. Porfavor intentelo de nuevo.\n");
         return;
     }
+
+    public List<Curso> getCursos(){
+        return CursoDAOImpl.instance().getCursosByDocente(DocenteDAOImpl.instance().getIdByDni(this.getDni()));
+    }
 }
 

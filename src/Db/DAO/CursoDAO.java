@@ -8,6 +8,8 @@ public interface CursoDAO {
     Curso getById(int id);
     Curso getByName(String nombre);
     List<Curso> getAll();
+    List<Curso> getCursosByDocente(int id_docente);
+    List<Curso> getCursosByAlumno(int id_alumno);
     void insert(String tipo_curso, Curso curso);
     void addDocente(int id_curso, int id_docente);
     void inscribirAlumno(String nombre, int id_alumno);

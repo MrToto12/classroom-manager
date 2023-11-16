@@ -354,6 +354,23 @@ public class CursoDAOImpl implements CursoDAO{
         return cursos;
     }
 
+    public List<Curso> getCursosByAlumno(int id_alumno){
+        List<Curso> cursos = new ArrayList<>();
+        String sql = "SELECT id_curso FROM cursos_alumnos WHERE id_alumno=?";
+        try (Connection connection = dbConnect.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, id_alumno);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                cursos.add(getById(resultSet.getInt("id_curso")));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return cursos;
+    }
+
     public int countAlumnos(int id_catedra){
         String sql = "SELECT COUNT(*) FROM cursos_alumnos WHERE id_curso=?";
         try (Connection connection = dbConnect.getConnection();

@@ -63,7 +63,7 @@ public class DocenteFactory implements PersonaFactory, calcularFecha {
 
     @Override
     public void delete(int dni){
-        db.deleteById(db.getIdByDni(dni));
+        db.delete(getFromDb(dni));
     }
 
     @Override
@@ -81,7 +81,6 @@ public class DocenteFactory implements PersonaFactory, calcularFecha {
         System.out.println("Ingrese el apellido del docente:");
         String apellido = scanner.nextLine();
 
-        System.out.println("Ingrese el DNI del docente:");
         int dni;
         while (true) {
             System.out.println("Ingrese el DNI del docente:");
@@ -92,7 +91,6 @@ public class DocenteFactory implements PersonaFactory, calcularFecha {
                 } else {
                     System.out.println("El DNI debe tener 7 u 8 dígitos. Intente de nuevo.");
                 }
-                break;  // Break out of the loop if the input is valid
             } catch (NumberFormatException e) {
                 System.out.println("Dato inválido. Ingrese un número válido.");
             }

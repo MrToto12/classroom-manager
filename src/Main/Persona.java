@@ -87,4 +87,8 @@ public abstract class Persona {
         }
         return cumpleaneros;
     }
+
+    public List<Curso> getCursos(){
+        return null;
+    }
 }
