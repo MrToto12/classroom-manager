@@ -182,8 +182,9 @@ public class CursoDAOImpl implements CursoDAO{
                     //Ya se que es la ultima catedra del curso, en caso de estar llena, creo una nueva
                     if(cursoIsFull(last_id_curso)){
 
-                        //PRINT PARA DEBUGGING
-                        System.out.println("\n-- Curso is full --\n");
+                        System.out.println("\n-- La catedra " + String.valueOf(curso.getCodigoDeCatedra())
+                                + " ya esta llena, estamos creando una nueva catedra para " +
+                                "poder inscribir al alumno... --\n");
 
                         curso.setCodigoDeCatedra(curso.getCodigoDeCatedra()+1);
 

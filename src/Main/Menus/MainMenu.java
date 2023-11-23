@@ -21,115 +21,116 @@ public class MainMenu {
         CursosFactory cursoVirtualFactory = CursoVirtualFactory.instance();
 
         while (true) {
-            printMenu();
-            int opcion = scanner.nextInt();
-            scanner.nextLine(); // Consume the newline character
+            try {
+                printMenu();
+                int opcion = Integer.parseInt(scanner.nextLine());
 
-            switch (opcion) {
-                case 1:
-                    System.out.println("---- Crear Alumno ----");
-                    alumnoFactory.crearPersonaManual();
-                    break;
-                case 2:
-                    System.out.println("---- Crear Docente ----");
-                    docenteFactory.crearPersonaManual();
-                    break;
-                case 3:
-                    System.out.println("---- Crear Curso ----");
-                    int tipoCurso;
-                    while (true) {
-                        System.out.println("¿Qué tipo de curso desea crear?");
-                        System.out.println("1. Presencial");
-                        System.out.println("2. Virtual");
-                        try {
-                            tipoCurso = Integer.parseInt(scanner.nextLine());
-                            if (tipoCurso == 1){
-                                CursoPresencialFactory.instance().crearCursoManual();
-                                break;
+                switch (opcion) {
+                    case 1:
+                        System.out.println("---- Crear Alumno ----");
+                        alumnoFactory.crearPersonaManual();
+                        break;
+                    case 2:
+                        System.out.println("---- Crear Docente ----");
+                        docenteFactory.crearPersonaManual();
+                        break;
+                    case 3:
+                        System.out.println("---- Crear Curso ----");
+                        int tipoCurso;
+                        while (true) {
+                            System.out.println("¿Qué tipo de curso desea crear?");
+                            System.out.println("1. Presencial");
+                            System.out.println("2. Virtual");
+                            try {
+                                tipoCurso = Integer.parseInt(scanner.nextLine());
+                                if (tipoCurso == 1) {
+                                    CursoPresencialFactory.instance().crearCursoManual();
+                                    break;
+                                } else if (tipoCurso == 2) {
+                                    CursoVirtualFactory.instance().crearCursoManual();
+                                    break;
+                                } else {
+                                    System.out.println("Por favor, ingrese 1 o 2.");
+                                }
+                            } catch (NumberFormatException e) {
+                                System.out.println("Entrada inválida. Por favor, ingrese 1 o 2.");
                             }
-                            else if(tipoCurso == 2) {
-                                CursoVirtualFactory.instance().crearCursoManual();
+                        }
+                        break;
+                    case 4:
+                        List<Persona> alumnos = alumnoFactory.getAllFromDb();
+                        System.out.println("---- Listando Todos Los Alumnos ----");
+                        for (Persona alumno : alumnos) {
+                            System.out.println(alumno);
+                        }
+                        break;
+                    case 5:
+                        List<Persona> docentes = docenteFactory.getAllFromDb();
+                        System.out.println("---- Listando Todos Los Docentes ----");
+                        for (Persona docente : docentes) {
+                            System.out.println(docente);
+                        }
+                        break;
+                    case 6:
+                        List<Curso> cursos = CursosFactory.getAllFromDb();
+                        System.out.println("---- Listando Todos Los Cursos ----");
+                        for (Curso curso : cursos) {
+                            System.out.println(curso.printAllCatedras());
+                        }
+                        break;
+                    case 7:
+                        // Acciones con un docente (asignar curso, listar cursos, etc)
+                        Persona docente = null;
+                        while (docente == null) {
+                            System.out.println("Ingrese el dni del docente para realizar alguna accion:");
+                            int dniDocente = Integer.parseInt(scanner.nextLine());
+                            docente = docenteFactory.getFromDb(dniDocente);
+                            if (docente == null) {
+                                System.out.println("No se ha encontrado el docente en nuestra base de datos, compruebe" +
+                                        " el DNI e intente nuevamente.");
                                 break;
                             } else {
-                                System.out.println("Por favor, ingrese 1 o 2.");
+                                MenuDocente menuDocente = new MenuDocente(docente);
                             }
-                        } catch (NumberFormatException e) {
-                            System.out.println("Entrada inválida. Por favor, ingrese 1 o 2.");
                         }
-                    }
-                    break;
-                case 4:
-                    List<Persona> alumnos = alumnoFactory.getAllFromDb();
-                    System.out.println("---- Listando Todos Los Alumnos ----");
-                    for (Persona alumno : alumnos) {
-                        System.out.println(alumno);
-                    }
-                    break;
-                case 5:
-                    List<Persona> docentes = docenteFactory.getAllFromDb();
-                    System.out.println("---- Listando Todos Los Docentes ----");
-                    for (Persona docente : docentes) {
-                        System.out.println(docente);
-                    }
-                    break;
-                case 6:
-                    List<Curso> cursos = CursosFactory.getAllFromDb();
-                    System.out.println("---- Listando Todos Los Cursos ----");
-                    for (Curso curso : cursos) {
-                        System.out.println(curso.printAllCatedras());
-                    }
-                    break;
-                case 7:
-                    // Acciones con un docente (asignar curso, listar cursos, etc)
-                    Persona docente = null;
-                    while (docente == null){
-                        System.out.println("Ingrese el dni del docente para realizar alguna accion:");
-                        int dniDocente = Integer.parseInt(scanner.nextLine());
-                        docente = docenteFactory.getFromDb(dniDocente);
-                        if(docente == null){
-                            System.out.println("No se ha encontrado el docente en nuestra base de datos, compruebe" +
-                                    " el DNI e intente nuevamente.");
-                            break;
+                        break;
+                    case 8:
+                        // Acciones con un alumno (inscribir, listar cursos, etc)
+                        Persona alumno = null;
+                        while (alumno == null) {
+                            System.out.println("Ingrese el dni del alumno para realizar alguna accion:");
+                            int dniAlumno = Integer.parseInt(scanner.nextLine());
+                            alumno = alumnoFactory.getFromDb(dniAlumno);
+                            if (alumno == null) {
+                                System.out.println("No se ha encontrado el alumno en nuestra base de datos, compruebe" +
+                                        " el DNI e intente nuevamente.");
+                                break;
+                            } else {
+                                MenuAlumno menuAlumno = new MenuAlumno(alumno);
+                            }
                         }
-                        else {
-                            MenuDocente menuDocente = new MenuDocente(docente);
-                        }
-                    }
-                    break;
-                case 8:
-                    // Acciones con un alumno (inscribir, listar cursos, etc)
-                    Persona alumno = null;
-                    while (alumno == null){
-                        System.out.println("Ingrese el dni del alumno para realizar alguna accion:");
-                        int dniAlumno = Integer.parseInt(scanner.nextLine());
-                        alumno = alumnoFactory.getFromDb(dniAlumno);
-                        if(alumno == null){
-                            System.out.println("No se ha encontrado el alumno en nuestra base de datos, compruebe" +
-                                    " el DNI e intente nuevamente.");
-                            break;
-                        } else {
-                            MenuAlumno menuAlumno = new MenuAlumno(alumno);
-                        }
-                    }
-                    break;
-                case 9:
-                    printCumpleaneros();
-                    break;
-                case 10:
-                    printAlumnosConDescuento();
-                    break;
-                case 11:
-                    printCursosMasVendidos();
-                    break;
-                case 12:
-                    eliminarCurso();
-                    break;
-                case 0:
-                    System.out.println("Saliendo del programa. ¡Hasta luego!");
-                    System.exit(0);
-                    break;
-                default:
-                    System.out.println("Opción no válida. Intente de nuevo.");
+                        break;
+                    case 9:
+                        printCumpleaneros();
+                        break;
+                    case 10:
+                        printAlumnosConDescuento();
+                        break;
+                    case 11:
+                        printCursosMasVendidos();
+                        break;
+                    case 12:
+                        eliminarCurso();
+                        break;
+                    case 0:
+                        System.out.println("Saliendo del programa. ¡Hasta luego!");
+                        System.exit(0);
+                        break;
+                    default:
+                        System.out.println("Opción no válida. Intente de nuevo.");
+                }
+            } catch (Exception e) {
+                System.out.println("Porfavor ingrese un numero valido");
             }
         }
     }

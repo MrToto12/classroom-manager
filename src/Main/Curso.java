@@ -139,8 +139,6 @@ public abstract class Curso {
             }
         }
 
-        System.out.println("MAXIMA CANTIDAD DE ALUMNOS EN UN CURSO: " + maxCantAlumnos);
-
         for (Curso curso :cursos){
             int cantAlumnos = 0;
             List<Integer> idCatedras =  db.getIdsByName(curso.getNombre());

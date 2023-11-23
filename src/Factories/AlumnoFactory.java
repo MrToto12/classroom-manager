@@ -13,7 +13,7 @@ import java.util.Scanner;
 
 public class AlumnoFactory implements PersonaFactory, hasLegajo, calcularFecha {
     private static AlumnoFactory instance = null;
-    public PersonaDAO db = AlumnoDAOImpl.instance();
+    private PersonaDAO db = AlumnoDAOImpl.instance();
 
     private AlumnoFactory(){}
 
@@ -44,7 +44,8 @@ public class AlumnoFactory implements PersonaFactory, hasLegajo, calcularFecha {
         LocalDate currentDate = LocalDate.now();
         int currentDay = currentDate.getDayOfMonth();
 
-        String legajo = String.valueOf(ultimosTresDigitos) + "-" + String.valueOf(currentDay) + "-" + String.valueOf(autoIncremental);
+        String legajo = String.valueOf(ultimosTresDigitos) + "-" + String.valueOf(currentDay) + "-"
+                + String.valueOf(autoIncremental);
 
         return legajo;
     }

@@ -11,7 +11,6 @@ import java.util.List;
 public class Alumno extends Persona {
 
     private String legajo;
-    private boolean descuento = false;
 
     public Alumno(String nombre, String apellido, int dni, LocalDate fechaDeNacimeinto, int edad){
         super(nombre, apellido, dni, fechaDeNacimeinto, edad);
