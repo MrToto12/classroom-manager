@@ -9,8 +9,6 @@ public interface PersonaDAO {
     Persona getByDni(int dni);
     List<Persona> getAll();
     void insert(Persona persona);
-    void update(Persona persona);
-    void updateByID(int id);
     void delete(Persona persona);
     void deleteById(int id);
     int countRows();

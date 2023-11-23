@@ -46,19 +46,6 @@ public class AlumnoDAOImpl implements PersonaDAO{
     }
 
     @Override
-    public void update(Persona persona){
-        this.delete(persona);
-        this.insert(persona);
-    }
-
-    @Override
-    public void updateByID(int id){
-        Persona persona = this.getById(id);
-        this.delete(persona);
-        this.insert(persona);
-    }
-
-    @Override
     public void delete(Persona persona){
         Alumno alumno = (Alumno) persona;
 
