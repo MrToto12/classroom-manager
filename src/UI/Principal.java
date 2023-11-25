@@ -1,8 +1,14 @@
 package UI;
 
+import Db.DAO.CursoDAOImpl;
+import Main.Curso;
+import Main.CursoPresencial;
+import Main.CursoVirtual;
+
 import javax.swing.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Principal extends JFrame{
     public JPanel panel;
@@ -20,18 +26,30 @@ public class Principal extends JFrame{
         btnConsultarCursos.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                CursoDAOImpl cursos_db = CursoDAOImpl.instance();
                 if (rBtnPresencial.isSelected()){
                     System.out.println("Cursos Presenciales: ");
+                    List<Curso> cursos = cursos_db.getAll();
+                    cursos = Curso.removeDuplicates(cursos);
+                    for(Curso curso : cursos) {
+                        if(curso instanceof CursoPresencial) {
+                            System.out.println(curso.getNombre());
+                        }
+                    }
                 } else if (rBtnDistancia.isSelected()) {
                     System.out.println("Cursos a distancia");
+                    List<Curso> cursos = cursos_db.getAll();
+                    cursos = Curso.removeDuplicates(cursos);
+                    for(Curso curso : cursos) {
+                        if(curso instanceof CursoVirtual) {
+                            System.out.println(curso.getNombre());
+                        }
+                    }
                 }else{
                     System.out.println("Seleccione una modalidad");
                 }
 
-                //enviar info al JList
-                System.out.println("hola mundassssssso" +
-                        "");
-                String dato = "dato";
+
 
             }
         });
