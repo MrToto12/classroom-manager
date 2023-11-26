@@ -11,7 +11,7 @@ public interface CursoDAO {
     List<Curso> getCursosByDocente(int id_docente);
     List<Curso> getCursosByAlumno(int id_alumno);
     void insert(String tipo_curso, Curso curso);
-    void addDocente(int id_curso, int id_docente);
+    String addDocente(int id_curso, int id_docente);
     String inscribirAlumno(String nombre, int id_alumno);
     boolean existsInDb(String nombre, int codigoDeCatedra);
     void delete(Curso curso);

@@ -166,7 +166,8 @@ public abstract class Curso {
         db.delete(this);
     }
 
-    public void printConDescuento(){
+    public String printConDescuento(){
+        return "";
     }
 
     public static <T> List<T> removeDuplicates(List<T> list) {

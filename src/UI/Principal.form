@@ -101,17 +101,6 @@
               <text value="Presencial"/>
             </properties>
           </component>
-          <component id="f360e" class="javax.swing.JButton" binding="btnInscribir">
-            <constraints>
-              <grid row="10" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <background color="-14269862"/>
-              <foreground color="-2368549"/>
-              <hideActionText value="false"/>
-              <text value="Inscribir a un Curso"/>
-            </properties>
-          </component>
           <component id="3dc73" class="javax.swing.JLabel" binding="lblCursosDisp">
             <constraints>
               <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
@@ -135,9 +124,14 @@
               <text value="Consultar"/>
             </properties>
           </component>
+          <vspacer id="d37c8">
+            <constraints>
+              <grid row="12" column="2" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+            </constraints>
+          </vspacer>
           <component id="2322e" class="javax.swing.JButton" binding="mostrarCumpleañerosButton" default-binding="true">
             <constraints>
-              <grid row="11" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <grid row="10" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <background color="-14269862"/>
@@ -146,14 +140,9 @@
               <text value="Mostrar Cumpleañeros"/>
             </properties>
           </component>
-          <vspacer id="d37c8">
-            <constraints>
-              <grid row="12" column="2" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
-            </constraints>
-          </vspacer>
           <component id="fcf7f" class="javax.swing.JButton" binding="mostrarAlumnosConDescuentoButton" default-binding="true">
             <constraints>
-              <grid row="9" column="3" row-span="1" col-span="7" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <grid row="11" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <background color="-14600373"/>
@@ -163,12 +152,22 @@
           </component>
           <component id="3255" class="javax.swing.JButton" binding="mostrarCursosMasVendidosButton" default-binding="true">
             <constraints>
-              <grid row="10" column="3" row-span="1" col-span="7" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <grid row="9" column="3" row-span="1" col-span="7" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <background color="-14600373"/>
               <foreground color="-2368549"/>
               <text value="Mostrar Cursos Mas Vendidos"/>
+            </properties>
+          </component>
+          <component id="d380f" class="javax.swing.JButton" binding="crearDocenteCursoOButton" default-binding="true">
+            <constraints>
+              <grid row="10" column="3" row-span="1" col-span="7" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-14600373"/>
+              <foreground color="-2368549"/>
+              <text value="Crear Docente, Curso o Alumno"/>
             </properties>
           </component>
         </children>

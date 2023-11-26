@@ -57,75 +57,9 @@ public class MainMenu {
                             }
                         }
                         break;
-                    case 4:
-                        List<Persona> alumnos = alumnoFactory.getAllFromDb();
-                        System.out.println("---- Listando Todos Los Alumnos ----");
-                        for (Persona alumno : alumnos) {
-                            System.out.println(alumno);
-                        }
-                        break;
-                    case 5:
-                        List<Persona> docentes = docenteFactory.getAllFromDb();
-                        System.out.println("---- Listando Todos Los Docentes ----");
-                        for (Persona docente : docentes) {
-                            System.out.println(docente);
-                        }
-                        break;
-                    case 6:
-                        List<Curso> cursos = CursosFactory.getAllFromDb();
-                        System.out.println("---- Listando Todos Los Cursos ----");
-                        for (Curso curso : cursos) {
-                            System.out.println(curso.printAllCatedras());
-                        }
-                        break;
-                    case 7:
-                        // Acciones con un docente (asignar curso, listar cursos, etc)
-                        Persona docente = null;
-                        while (docente == null) {
-                            System.out.println("Ingrese el dni del docente para realizar alguna accion:");
-                            int dniDocente = Integer.parseInt(scanner.nextLine());
-                            docente = docenteFactory.getFromDb(dniDocente);
-                            if (docente == null) {
-                                System.out.println("No se ha encontrado el docente en nuestra base de datos, compruebe" +
-                                        " el DNI e intente nuevamente.");
-                                break;
-                            } else {
-                                MenuDocente menuDocente = new MenuDocente(docente);
-                            }
-                        }
-                        break;
-                    case 8:
-                        // Acciones con un alumno (inscribir, listar cursos, etc)
-                        Persona alumno = null;
-                        while (alumno == null) {
-                            System.out.println("Ingrese el dni del alumno para realizar alguna accion:");
-                            int dniAlumno = Integer.parseInt(scanner.nextLine());
-                            alumno = alumnoFactory.getFromDb(dniAlumno);
-                            if (alumno == null) {
-                                System.out.println("No se ha encontrado el alumno en nuestra base de datos, compruebe" +
-                                        " el DNI e intente nuevamente.");
-                                break;
-                            } else {
-                                MenuAlumno menuAlumno = new MenuAlumno(alumno);
-                            }
-                        }
-                        break;
-                    case 9:
-                        printCumpleaneros();
-                        break;
-                    case 10:
-                        printAlumnosConDescuento();
-                        break;
-                    case 11:
-                        printCursosMasVendidos();
-                        break;
-                    case 12:
-                        eliminarCurso();
-                        break;
                     case 0:
-                        System.out.println("Saliendo del programa. ¡Hasta luego!");
-                        System.exit(0);
-                        break;
+                        System.out.println("Proceso finalizado, puede volver a usar la interfaz grafica");
+                        return;
                     default:
                         System.out.println("Opción no válida. Intente de nuevo.");
                 }
@@ -140,78 +74,8 @@ public class MainMenu {
         System.out.println("1. Crear Alumno");
         System.out.println("2. Crear Docente");
         System.out.println("3. Crear Curso");
-        System.out.println("4. Listar Alumnos");
-        System.out.println("5. Listar Docentes");
-        System.out.println("6. Listar Cursos");
-        System.out.println("7. Realizar acción con un docente (asignar curso, listar cursos, etc)");
-        System.out.println("8. Realizar acción con un alumno (inscribir, listar cursos, etc)");
-        System.out.println("9. Mostrar alumnos y docentes que cumplen años en la proxima semana");
-        System.out.println("10. Mostrar alumnos con acceso al descuento del 20%");
-        System.out.println("11. Mostrar cursos mas vendidos");
-        System.out.println("12. Eliminar Curso");
-        System.out.println("0. Salir");
+        System.out.println("0. Salir del menu de creacion");
         System.out.println("Ingrese el número de la opción deseada:");
-    }
-
-    private static void printCumpleaneros(){
-        PersonaFactory alumnoFactory = AlumnoFactory.instance();
-        PersonaFactory docenteFactory = DocenteFactory.instance();
-
-        List<Persona> alumnos = alumnoFactory.getAllFromDb();
-        List<Persona> docentes = docenteFactory.getAllFromDb();
-
-        List<Persona> alumnosCumpleaneros =  Persona.getCumpleaneros(alumnos);
-        List<Persona> docentesCumpleaneros =  Persona.getCumpleaneros(docentes);
-
-        //Merging both lists
-        List<Persona> personasCumpleaneras = new ArrayList<>(alumnosCumpleaneros);
-        personasCumpleaneras.addAll(docentesCumpleaneros);
-
-        // -------- LISTAR CUMPLEAÑEROS --------
-
-        System.out.println("\n===== ALUMNOS Y DOCENTES CON PROXIMIDAD A SU CUMPLEAÑOS ====\n");
-        if(personasCumpleaneras.isEmpty()){
-            System.out.println("Ningun docente ni alumno cumple años la proxima semana");
-        }
-        else {
-            for(Persona cumpleanero : personasCumpleaneras){
-                System.out.println(cumpleanero.getNombre() + " " + cumpleanero.getApellido() + " cumple " +
-                        (cumpleanero.getEdad() + 1) + " años el dia " + cumpleanero.getFechaDeNacimiento().getDayOfMonth() +
-                        "/" + cumpleanero.getFechaDeNacimiento().getMonthValue() + " !");
-            }
-        }
-
-    }
-
-    private static void printAlumnosConDescuento(){
-        // -------- LISTAR DESCUENTOS --------
-        System.out.println("\n===== ALUMNOS CON DESCUENTO ====\n");
-        int cantAlumnosConDescuento = Alumno.getAlumnosConDescuento().size();
-        if(cantAlumnosConDescuento == 0){
-            System.out.println("No hay ningun alumno con acceso al descuento del 20%");
-        }
-        else{
-            for(Persona alumnoConDescuento : Alumno.getAlumnosConDescuento()){
-                System.out.println("El alumno " + alumnoConDescuento.getNombre() + " " + alumnoConDescuento.getApellido() +
-                        " tiene acceso al descuento del 20%");
-            }
-            System.out.println("Siendo un total de " + cantAlumnosConDescuento + " alumnos con descuento");
-        }
-
-    }
-
-    private static void printCursosMasVendidos(){
-        // -------- LISTAR CURSOS MAS VENDIDOS --------
-        System.out.println("\n===== CURSOS MAS VENDIDOS ====\n");
-        if(Curso.getCursosMasVendidos().isEmpty()){
-            System.out.println("No hay ningun curso creado o no hay ningun alumno inscripto a los cursos creados");
-        }
-        else{
-            for(Curso curso : Curso.getCursosMasVendidos()){
-                System.out.println("Curso mas vendido: " + curso.getNombre());
-            }
-        }
-
     }
 
     private static void eliminarCurso(){

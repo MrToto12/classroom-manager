@@ -69,7 +69,7 @@ public class CursoDAOImpl implements CursoDAO{
     }
 
     @Override
-    public void addDocente(int id_curso, int id_docente) {
+    public String addDocente(int id_curso, int id_docente) {
         if(docentes_db.existsInDbById(id_docente) && getById(id_curso) != null){
 
             if(!docenteOcupado(id_curso, id_docente)){
@@ -85,7 +85,7 @@ public class CursoDAOImpl implements CursoDAO{
                     if (rowsAffected == 0) {
                         System.out.println("No se encontro el curso con la id: " + id_curso);
                     } else {
-                        System.out.println("Se añadio el docente al curso: " + id_curso);
+                        return "Se añadio el docente al curso: " + id_curso;
                     }
                 }
                 catch (SQLException e) {
@@ -93,14 +93,15 @@ public class CursoDAOImpl implements CursoDAO{
                 }
             }
             else{
-                System.out.println("\n -- El docente ya tiene una clase asignada en ese momento, por lo que no" +
-                        " es posible asignarle esta clase. --");
+               return "El docente ya tiene una clase asignada en ese momento, por lo que no" +
+                        " es posible asignarle esta clase.";
             }
         }
         else{
-            System.out.println("\n-- No se ha encontrado el docente o el curso en nuestra base de datos," +
-                    "porfavor, creelos primero o intentelo de nuevo con otros valores --\n");
+            return "No se ha encontrado el docente o el curso en nuestra base de datos," +
+                    "porfavor, creelos primero o intentelo de nuevo con otros valores.";
         }
+        return "";
     }
 
     @Override

@@ -42,7 +42,7 @@ public class CursoVirtual extends Curso{
     }
 
     @Override
-    public void printConDescuento(){
+    public String printConDescuento(){
         double costoConDescuento = this.getCosto() - this.getCosto()*20/100;
         costoConDescuento = Math.round(costoConDescuento);
         String result = "Nombre: " + this.getNombre() + "\n"
@@ -61,7 +61,7 @@ public class CursoVirtual extends Curso{
         else {
             result+= "Esta catedra no tiene ningun docente asignado.";
         }
-        System.out.println(result);
+        return result;
     }
 }
 

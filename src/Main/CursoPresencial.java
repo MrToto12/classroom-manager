@@ -41,7 +41,7 @@ import java.time.LocalTime;
         }
 
         @Override
-        public void printConDescuento(){
+        public String printConDescuento(){
             double costoConDescuento = this.getCosto() - this.getCosto()*20/100;
             costoConDescuento = Math.round(costoConDescuento);
             String result = "Nombre: " + this.getNombre() + "\n"
@@ -59,7 +59,7 @@ import java.time.LocalTime;
             else {
                 result+= "Esta catedra no tiene ningun docente asignado.";
             }
-            System.out.println(result);
+           return result;
         }
 
         @Override

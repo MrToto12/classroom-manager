@@ -49,6 +49,7 @@ public class ConsultarPersonal extends JFrame {
                 }
             }
         });
+
         rbtnAlumno.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
@@ -120,12 +121,11 @@ public class ConsultarPersonal extends JFrame {
                             JOptionPane.showMessageDialog(null, "Porfavor ingrese un numero valido");
                             txtDni.removeAll();
                         }
-
-
                     }
                 }
             }
         });
+
         btnConsulTodo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -133,12 +133,13 @@ public class ConsultarPersonal extends JFrame {
                 if (rbtnDocente.isSelected()){
                     List<Persona> docentes = DocenteFactory.instance().getAllFromDb();
                     for(Persona docente : docentes){
-                        modelo.addElement(docente.getNombre() + " " + docente.getApellido());
+                        modelo.addElement(docente.getNombre() + " " + docente.getApellido() + " - " + docente.getDni());
+
                     }
                 } else if (rbtnAlumno.isSelected()) {
                     List<Persona> alumnos = AlumnoFactory.instance().getAllFromDb();
                     for(Persona alumno : alumnos){
-                        modelo.addElement(alumno.getNombre() + " " + alumno.getApellido());
+                        modelo.addElement(alumno.getNombre() + " " + alumno.getApellido() + " - " + alumno.getDni());
                     }
                 }else {
                     JOptionPane.showMessageDialog(null,"Seleccionar un tipo de personal");
@@ -150,26 +151,44 @@ public class ConsultarPersonal extends JFrame {
             public void mouseClicked(MouseEvent e) {
 
                 //generar nueva vnt
+                if(!modelo.isEmpty()) {
+                    super.mouseClicked(e);
+                    if (e.getClickCount() > 1) {
+                        if (rbtnAlumno.isSelected()) {
+                            String selectedValue = jlistPersonal.getSelectedValue().toString();
 
-                super.mouseClicked(e);
-                if (e.getClickCount()>=1){
-                    if (rbtnAlumno.isSelected()) {
-                        acccionesAlumno acAl = new acccionesAlumno();
-                        acAl.setContentPane(new acccionesAlumno().panelAcAlum);
-                        acAl.setVisible(true);
-                        acAl.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                        //que pase solo el alumno seleccionado
-                        JOptionPane.showMessageDialog(null, "Nueva ventana");
-                    } else if (rbtnDocente.isSelected()) {
-                        acccionesDocente accDoc = new acccionesDocente();
-                        accDoc.setContentPane(new acccionesDocente().panelAcADoc);
-                        accDoc.setVisible(true);
+                            String[] parts = selectedValue.split(" - ");
+
+                            String nameAndLastName = parts[0];
+                            String dniString = parts[1];
+                            int dniAlumno = Integer.parseInt(dniString);;
+                            Persona alumno = AlumnoFactory.instance().getFromDb(dniAlumno);
+
+                            acccionesAlumno acAl = new acccionesAlumno();
+                            acAl.updateLabel(alumno.toString());
+                            acAl.setContentPane(acAl.panelAcAlum);
+                            acAl.setVisible(true);
+                            acAl.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 
-                        JOptionPane.showMessageDialog(null, "Nueva ventana");
+                        }
+                        else if (rbtnDocente.isSelected()) {
+                            String selectedValue = jlistPersonal.getSelectedValue().toString();
+
+                            String[] parts = selectedValue.split(" - ");
+
+                            String nameAndLastName = parts[0];
+                            String dniString = parts[1];
+                            int dniDocente = Integer.parseInt(dniString);
+                            Persona docente = DocenteFactory.instance().getFromDb(dniDocente);
+
+                            acccionesDocente accDoc = new acccionesDocente();
+                            accDoc.updateLabel(docente.toString());
+                            accDoc.setContentPane(accDoc.panelAcADoc);
+                            accDoc.setVisible(true);
+                        }
                     }
                 }
-
             }
         });
     }

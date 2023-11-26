@@ -6,6 +6,7 @@ import Factories.CursosFactory;
 import Factories.DocenteFactory;
 import Factories.PersonaFactory;
 import Main.*;
+import Main.Menus.MainMenu;
 
 import javax.swing.*;
 import java.awt.event.*;
@@ -27,6 +28,7 @@ public class Principal extends JFrame{
     private JButton mostrarCumpleañerosButton;
     private JButton mostrarAlumnosConDescuentoButton;
     private JButton mostrarCursosMasVendidosButton;
+    private JButton crearDocenteCursoOButton;
 
     ArrayList presenciales = new ArrayList();
     ArrayList distancia = new ArrayList();
@@ -113,16 +115,6 @@ public class Principal extends JFrame{
             }
         });
 
-        btnInscribir.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Inscripcion vntIns = new Inscripcion();
-                vntIns.setContentPane(new Inscripcion().panelInscripcion);
-                vntIns.setVisible(true);
-                vntIns.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            }
-        });
-
         mostrarCumpleañerosButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -158,20 +150,22 @@ public class Principal extends JFrame{
         mostrarAlumnosConDescuentoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // -------- LISTAR DESCUENTOS --------
-                String mensajeDescuento = "===== ALUMNOS CON DESCUENTO ====\n";
+
                 int cantAlumnosConDescuento = Alumno.getAlumnosConDescuento().size();
                 if(cantAlumnosConDescuento == 0){
                    JOptionPane.showMessageDialog(null, "No hay ningun alumno con acceso al descuento del 20%");
                 }
                 else{
+                    // -------- LISTAR DESCUENTOS --------
+                    String mensajeDescuento = "===== ALUMNOS CON DESCUENTO ====\n";
                     for(Persona alumnoConDescuento : Alumno.getAlumnosConDescuento()){
                         mensajeDescuento += "El alumno " + alumnoConDescuento.getNombre() + " " + alumnoConDescuento.getApellido() +
                                 " tiene acceso al descuento del 20%\n";
                     }
                     mensajeDescuento += "Siendo un total de " + cantAlumnosConDescuento + " alumnos con descuento";
+                    JOptionPane.showMessageDialog(null, mensajeDescuento );
                 }
-                JOptionPane.showMessageDialog(null, mensajeDescuento );
+
             }
         });
 
@@ -188,6 +182,15 @@ public class Principal extends JFrame{
                     }
                     JOptionPane.showMessageDialog(null, mensajeCursosVendidos);
                 }
+            }
+        });
+
+        crearDocenteCursoOButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(null, "Continue por consola y vuelva cuando haya finalizado.");
+                MainMenu menu = new MainMenu();
+
             }
         });
     }
