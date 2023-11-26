@@ -162,7 +162,7 @@ public class CursoDAOImpl implements CursoDAO{
     }
 
     @Override
-    public void inscribirAlumno(String nombre, int id_alumno){
+    public String inscribirAlumno(String nombre, int id_alumno){
         if(alumnos_db.existsInDbById(id_alumno) && getIdsByName(nombre).size() != 0){
             List<Integer> id_catedras = getIdsByName(nombre);
             int last_id_curso = id_catedras.get(id_catedras.size() - 1);
@@ -175,40 +175,41 @@ public class CursoDAOImpl implements CursoDAO{
                     for(int id_catedra : id_catedras){
                         if((!cursoIsFull(id_catedra)) && id_catedra != last_id_curso){
                             inscribir(id_catedra, id_alumno);
-                            return;
+                            return "El alumno se ha inscripto al curso presencial correctamente!";
                         }
                     }
 
                     //Ya se que es la ultima catedra del curso, en caso de estar llena, creo una nueva
                     if(cursoIsFull(last_id_curso)){
 
-                        System.out.println("\n-- La catedra " + String.valueOf(curso.getCodigoDeCatedra())
-                                + " ya esta llena, estamos creando una nueva catedra para " +
-                                "poder inscribir al alumno... --\n");
+                        String result = "La catedra " + String.valueOf(curso.getCodigoDeCatedra())
+                                + " ya esta llena, hemos creado una nueva catedra para " +
+                                "poder inscribir al alumno y se ha inscripto correctamente a la catedra " +
+                                String.valueOf(curso.getCodigoDeCatedra()+1);
 
                         curso.setCodigoDeCatedra(curso.getCodigoDeCatedra()+1);
 
                         insert("Presencial", curso);
                         this.inscribirAlumno(nombre, id_alumno);
+                        return result;
                     }
                     else {
                         inscribir(last_id_curso, id_alumno);
-                        return;
+                        return "El alumno se ha inscripto al curso presencial correctamente!";
                     }
                 }
                 else {
-                    System.out.println("-- El alumno no puede estar en mas de un curso presencial al mismo tiempo --\n");
+                    return "El alumno no puede estar en mas de un curso presencial al mismo tiempo!";
                 }
             }
             else {  //El curso es virtual
                 inscribir(last_id_curso, id_alumno);
-                return;
+                return "El alumno se ha inscripto al curso virtual correctamente!";
             }
         }
         else{
-            System.out.println("\n-- No se ha encontrado el alumno o el curso en nuestra base de datos," +
-                    "porfavor, creelos primero o intentelo de nuevo con otros valores --\n");
-            return;
+            return "No se ha encontrado el alumno o el curso en nuestra base de datos," +
+                    "porfavor, creelos primero o intentelo de nuevo con otros valores";
         }
     }
 

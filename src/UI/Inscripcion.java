@@ -6,26 +6,26 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
-public class inscripcion extends JFrame {
+public class Inscripcion extends JFrame {
     public JPanel panelInscripcion;
     private JRadioButton rbtnPresencial;
     private JRadioButton rbtnDistancia;
     private JButton siguienteButton;
 
-    public inscripcion(){
+    public Inscripcion(){
         setSize(400,400);
         siguienteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (rbtnPresencial.isSelected()){
                     System.out.println("Cursos Presenciales: ");
-                    AlumnoPresencial alumPres = new AlumnoPresencial();
-                    alumPres.setContentPane(new AlumnoPresencial().panelPres);
+                    InscripcionPresencial alumPres = new InscripcionPresencial();
+                    alumPres.setContentPane(new InscripcionPresencial().panelPres);
                     alumPres.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                     alumPres.setVisible(true);
                 } else if (rbtnDistancia.isSelected()) {
-                    AlumnoDistancia alumDist = new AlumnoDistancia();
-                    alumDist.setContentPane(new AlumnoDistancia().panelDist);
+                    InscripcionVirtual alumDist = new InscripcionVirtual();
+                    alumDist.setContentPane(new InscripcionVirtual().panelDist);
                     alumDist.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                     alumDist.setVisible(true);
              System.out.println("Cursos a distancia");
@@ -34,6 +34,7 @@ public class inscripcion extends JFrame {
                 }
             }
         });
+
         rbtnPresencial.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {

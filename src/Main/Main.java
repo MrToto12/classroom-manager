@@ -1,6 +1,7 @@
 package Main;
 
 
+import Db.DAO.CursoDAOImpl;
 import Main.Menus.MainMenu;
 import UI.*;
 
@@ -10,6 +11,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         //listo
        // MainMenu mainMenu = new MainMenu();
+
         Principal ventana = new Principal();// ventana.setSize(1100,600);
         ventana.setContentPane(new Principal().panel);
         ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

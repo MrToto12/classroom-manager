@@ -12,7 +12,7 @@ public interface CursoDAO {
     List<Curso> getCursosByAlumno(int id_alumno);
     void insert(String tipo_curso, Curso curso);
     void addDocente(int id_curso, int id_docente);
-    void inscribirAlumno(String nombre, int id_alumno);
+    String inscribirAlumno(String nombre, int id_alumno);
     boolean existsInDb(String nombre, int codigoDeCatedra);
     void delete(Curso curso);
     void deleteById(int id);

@@ -40,8 +40,8 @@ public class Alumno extends Persona {
     }
 
     @Override
-    public void inscribirACurso(String nombreCurso){
-        CursoDAOImpl.instance().inscribirAlumno(nombreCurso, AlumnoDAOImpl.instance().getIdByDni(this.getDni()));
+    public String inscribirACurso(String nombreCurso){
+       return CursoDAOImpl.instance().inscribirAlumno(nombreCurso, AlumnoDAOImpl.instance().getIdByDni(this.getDni()));
     }
 
     public boolean hasDescuento(){
@@ -51,13 +51,8 @@ public class Alumno extends Persona {
 
     public static List<Persona> getAlumnosConDescuento(){
         System.out.println("Obteniendo alumnos, porfavor espere...");
-        List<Persona> alumnosConDescuento = new ArrayList<>();
-        for(Persona alumno : AlumnoFactory.instance().getAllFromDb()){
-            if(alumno.hasDescuento()){
-                alumnosConDescuento.add(alumno);
-            }
-        }
-        return alumnosConDescuento;
+
+        return AlumnoDAOImpl.instance().getAlumnosConDescuento();
     }
 
     @Override

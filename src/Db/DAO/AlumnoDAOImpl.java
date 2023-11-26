@@ -181,6 +181,26 @@ public class AlumnoDAOImpl implements PersonaDAO{
         return false;
     }
 
+    public List<Persona> getAlumnosConDescuento(){
+        List<Persona> resultado = new ArrayList<>();
+
+        String sql = "SELECT id_alumno FROM cursos_alumnos GROUP BY id_alumno HAVING COUNT(id_alumno) >= 2";
+        try (Connection connection = dbConnect.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
+
+            while (resultSet.next()) {
+                int alumnoId = resultSet.getInt("id_alumno");
+                resultado.add(getById(alumnoId));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return resultado;
+    }
+
+
     @Override
     public Persona getByDni(int dni){
         return getById(getIdByDni(dni));

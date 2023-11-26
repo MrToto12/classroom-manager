@@ -47,7 +47,7 @@ public class Docente extends Persona {
     }
 
     @Override
-    public void inscribirACurso(String nombreCurso){
+    public String inscribirACurso(String nombreCurso){
         CursoDAOImpl db = CursoDAOImpl.instance();
         Scanner scanner = new Scanner(System.in);
         List<Integer> id_catedras = db.getIdsByName(nombreCurso);
@@ -64,12 +64,12 @@ public class Docente extends Persona {
         for(int id_catedra: id_catedras){
             if(catedraSeleccionada == db.getById(id_catedra).getCodigoDeCatedra()){
                db.addDocente(id_catedra, DocenteDAOImpl.instance().getIdByDni(this.getDni()));
-               return;
+               return "El docente se ha añadido con exito al curso;";
             }
         }
 
         System.out.println("\nLa catedra seleccionada no existe en la base de datos. Porfavor intentelo de nuevo.\n");
-        return;
+        return "La catedra seleccionada no existe en la base de datos. Porfavor intentelo de nuevo.";
     }
 
     public List<Curso> getCursos(){

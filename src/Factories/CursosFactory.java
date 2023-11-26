@@ -19,6 +19,11 @@ public abstract class CursosFactory {
         return curso;
     }
 
+    public static Curso getAnyCatedraFromDb(String nombre){
+        Curso curso = db.getById(db.getIdsByName(nombre).get(0));
+        return curso;
+    }
+
     public static void deleteByName(String nombre){
         db.delete(db.getByName(nombre));
     }
