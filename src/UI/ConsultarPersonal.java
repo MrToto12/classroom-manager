@@ -148,9 +148,26 @@ public class ConsultarPersonal extends JFrame {
         jlistPersonal.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+
+                //generar nueva vnt
+
                 super.mouseClicked(e);
                 if (e.getClickCount()>=1){
-                    JOptionPane.showMessageDialog(null, "Nueva ventana");
+                    if (rbtnAlumno.isSelected()) {
+                        acccionesAlumno acAl = new acccionesAlumno();
+                        acAl.setContentPane(new acccionesAlumno().panelAcAlum);
+                        acAl.setVisible(true);
+                        acAl.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                        //que pase solo el alumno seleccionado
+                        JOptionPane.showMessageDialog(null, "Nueva ventana");
+                    } else if (rbtnDocente.isSelected()) {
+                        acccionesDocente accDoc = new acccionesDocente();
+                        accDoc.setContentPane(new acccionesDocente().panelAcADoc);
+                        accDoc.setVisible(true);
+
+
+                        JOptionPane.showMessageDialog(null, "Nueva ventana");
+                    }
                 }
 
             }
