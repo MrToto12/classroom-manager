@@ -8,6 +8,7 @@ import javax.swing.*;
 
 public class Main {
     public static void main(String[] args) throws Exception {
+        //listo
        // MainMenu mainMenu = new MainMenu();
         Principal ventana = new Principal();// ventana.setSize(1100,600);
         ventana.setContentPane(new Principal().panel);
