@@ -23,6 +23,7 @@ public class ConsultarPersonal extends JFrame {
     private JButton consultarButton;
     private JList jlistPersonal;
     public JPanel panelPersonal;
+    private JButton btnConsulTodo;
     ArrayList docente = new ArrayList();
     ArrayList alumno = new ArrayList();
     DefaultListModel modelo = new DefaultListModel();
@@ -121,6 +122,20 @@ public class ConsultarPersonal extends JFrame {
 
 
                     }
+                }
+            }
+        });
+        btnConsulTodo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //CONSULTAR TODOS
+                if (rbtnDocente.isSelected()){
+                    //mostrar docentes
+                    System.out.println("Hola");
+                } else if (rbtnAlumno.isSelected()) {
+                    System.out.println("chau");
+                }else {
+                    JOptionPane.showMessageDialog(null,"Seleccionar un tipo de personal");
                 }
             }
         });
