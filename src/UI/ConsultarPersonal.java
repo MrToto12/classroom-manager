@@ -1,78 +1,81 @@
 package UI;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.ArrayList;
 
-public class ConsultarPersonal extends JFrame{
+public class ConsultarPersonal extends JFrame {
     private JRadioButton rbtnDocente;
     private JRadioButton rbtnAlumno;
-    private JTextField jtxtdni1;
+    private JTextField txtDni;
     private JButton consultarButton;
+    private JList jlistPersonal;
     public JPanel panelPersonal;
-    private JButton btnVolver;
-    public JRadioButton docenteRadioButton;
-    public JRadioButton alumnoRadioButton;
-    public JList list1;
+    ArrayList docente = new ArrayList();
+    ArrayList alumno = new ArrayList();
+    DefaultListModel modelo = new DefaultListModel();
 
-    public ConsultarPersonal() {
+    public ConsultarPersonal(){
+        setSize(600,600);
+
+        jlistPersonal.setModel(modelo);
+
+        String al1 = "Valentino";
+        String al2 = "tomas";
+        String al3 = "alejo";
+        alumno.add(al1);
+        alumno.add(al2);
+        alumno.add(al3);
+
+        String dc1 = "requena";
+        String dc2 = "virgolini";
+        docente.add(dc1);
+        docente.add(dc2);
         rbtnDocente.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
-                if (e.getStateChange() == ItemEvent.SELECTED){
-                    System.out.println("Seleccionaste docente");
+                if (rbtnDocente.isSelected()){
                     rbtnAlumno.setSelected(false);
-
-                    //CONFIGURAR ENTRADA DE TEXTO VACÍA O CON DATOS
-                    consultarButton.addActionListener(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                            if (jtxtdni1.getText()==""){
-                                System.out.println("no dice nada");
-
-                            } else if (jtxtdni1.getText()!="") {
-                                System.out.println("else if");
-
-                            }else {
-                                System.out.println("else");
-                            }
-                        }
-                    });
                 }
             }
         });
         rbtnAlumno.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
-                if (e.getStateChange() == ItemEvent.SELECTED){
-                    System.out.println("Seleccionaste Alumno");
+                if (rbtnAlumno.isSelected()){
                     rbtnDocente.setSelected(false);
                 }
             }
         });
-        btnVolver.addActionListener(new ActionListener() {
+        consultarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Volver al menu principal");
-            }
-        });
-        docenteRadioButton.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent e) {
-                if (e.getStateChange()==ItemEvent.SELECTED){
-                    alumnoRadioButton.setSelected(false);
+                modelo.clear();
+                if (rbtnAlumno.isSelected()){
+                    for (int i = 0; i <alumno.size();i++){
+                        modelo.addElement(alumno.get(i));
+                    }
+                    if (txtDni.getText().isEmpty()){
+                        JOptionPane.showMessageDialog(null,"Ingresar DNI sin puntos");
+                    }else {
+                        JOptionPane.showMessageDialog(null,"El DNI ES: "+ txtDni.getText());
+                    }
                 }
-            }
-        });
-        alumnoRadioButton.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent e) {
-                if (e.getStateChange()==ItemEvent.SELECTED){
-                    docenteRadioButton.setSelected(false);
+
+                if (rbtnDocente.isSelected()){
+                    for (int i=0; i<docente.size();i++){
+                        modelo.addElement(docente.get(i));
+                    }
+                    if (txtDni.getText().isEmpty()){
+                        JOptionPane.showMessageDialog(null,"Ingresar DNI sin puntos");
+                    }else {
+                        JOptionPane.showMessageDialog(null,"El DNI ES: "+ txtDni.getText());
+                    }
                 }
             }
         });
     }
 }
-
