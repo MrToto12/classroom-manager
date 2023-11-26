@@ -4,15 +4,14 @@ import Db.DAO.AlumnoDAOImpl;
 import Db.DAO.DocenteDAOImpl;
 import Db.DAO.PersonaDAO;
 import Factories.AlumnoFactory;
+import Factories.CursosFactory;
 import Factories.DocenteFactory;
 import Factories.PersonaFactory;
+import Main.Curso;
 import Main.Persona;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
+import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,6 +45,7 @@ public class ConsultarPersonal extends JFrame {
             public void itemStateChanged(ItemEvent e) {
                 if (rbtnDocente.isSelected()){
                     rbtnAlumno.setSelected(false);
+                    modelo.clear();
                 }
             }
         });
@@ -54,6 +54,7 @@ public class ConsultarPersonal extends JFrame {
             public void itemStateChanged(ItemEvent e) {
                 if (rbtnAlumno.isSelected()){
                     rbtnDocente.setSelected(false);
+                    modelo.clear();
                 }
             }
         });
@@ -130,13 +131,28 @@ public class ConsultarPersonal extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 //CONSULTAR TODOS
                 if (rbtnDocente.isSelected()){
-                    //mostrar docentes
-                    System.out.println("Hola");
+                    List<Persona> docentes = DocenteFactory.instance().getAllFromDb();
+                    for(Persona docente : docentes){
+                        modelo.addElement(docente.getNombre() + " " + docente.getApellido());
+                    }
                 } else if (rbtnAlumno.isSelected()) {
-                    System.out.println("chau");
+                    List<Persona> alumnos = AlumnoFactory.instance().getAllFromDb();
+                    for(Persona alumno : alumnos){
+                        modelo.addElement(alumno.getNombre() + " " + alumno.getApellido());
+                    }
                 }else {
                     JOptionPane.showMessageDialog(null,"Seleccionar un tipo de personal");
                 }
+            }
+        });
+        jlistPersonal.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                if (e.getClickCount()>=1){
+                    JOptionPane.showMessageDialog(null, "Nueva ventana");
+                }
+
             }
         });
     }
