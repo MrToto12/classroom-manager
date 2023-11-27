@@ -8,7 +8,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
 import java.util.List;
 
 public class acccionesAlumno extends JFrame{
@@ -16,11 +15,10 @@ public class acccionesAlumno extends JFrame{
     private JButton inscribirButton;
     private JButton eliminarAlumnoButton;
     private JButton verInscripcionButton;
-    public JLabel lblInfoalumno;
+    public JLabel lblInfoAlumno;
 
     public acccionesAlumno(){
         setSize(600,600);
-        lblInfoalumno.setMaximumSize(new Dimension(200,200));
 
         verInscripcionButton.addActionListener(new ActionListener() {
             @Override
@@ -30,7 +28,7 @@ public class acccionesAlumno extends JFrame{
                 int dniAlumno = 0;
 
                 // Split the text into lines
-                String[] lines = lblInfoalumno.getText().split("<br>");
+                String[] lines = lblInfoAlumno.getText().split("<br>");
 
                 // Loop through each line and find the one that contains "DNI:"
                 for (String line : lines) {
@@ -69,7 +67,7 @@ public class acccionesAlumno extends JFrame{
                 int dniAlumno = 0;
 
                 // Split the text into lines
-                String[] lines = lblInfoalumno.getText().split("<br>");
+                String[] lines = lblInfoAlumno.getText().split("<br>");
 
                 // Loop through each line and find the one that contains "DNI:"
                 for (String line : lines) {
@@ -94,7 +92,7 @@ public class acccionesAlumno extends JFrame{
                 int dniAlumno = 0;
 
                 // Split the text into lines
-                String[] lines = lblInfoalumno.getText().split("<br>");
+                String[] lines = lblInfoAlumno.getText().split("<br>");
 
                 // Loop through each line and find the one that contains "DNI:"
                 for (String line : lines) {
@@ -131,8 +129,9 @@ public class acccionesAlumno extends JFrame{
     public void updateLabel(String newText) {
         SwingUtilities.invokeLater(() -> {
             // Use HTML to support newline characters
-            lblInfoalumno.setText("<html>" + newText.replaceAll("\n", "<br>") + "</html>");
-            lblInfoalumno.repaint();
+
+            lblInfoAlumno.setText("<html>" + newText.replaceAll("\n", "<br>") + "</html>");
+            lblInfoAlumno.repaint();
             this.repaint();
         });
     }

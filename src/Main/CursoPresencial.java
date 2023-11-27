@@ -63,23 +63,28 @@ import java.time.LocalTime;
         }
 
         @Override
-        public String printAllCatedras(){
+        public String printAllCatedras() {
             String catedras = "";
             CursoDAOImpl db = CursoDAOImpl.instance();
-            for(int id_catedra: db.getIdsByName(this.getNombre())){
+            for (int id_catedra : db.getIdsByName(this.getNombre())) {
                 Curso catedra = db.getById(id_catedra);
                 catedras += String.valueOf(catedra.getCodigoDeCatedra()) + ", ";
             }
-            String result = "Nombre: " + this.getNombre() + "\n"
-                    + "Codigo de Todas Las Catedras: " + catedras + "\n"
-                    + "Descripcion: " + this.getDescripcionDelTema() + "\n"
-                    + "Objetivo: " + this.getObjetivo() + "\n"
-                    + "Personas Dirigidas: " + this.getPersonasDirigidas() + "\n"
-                    + "Costo: " + String.valueOf(this.getCosto()) + "\n"
-                    + "Hora Inicio: " + this.getHoraDeInicio().toString() + "\n"
-                    + "Hora Cierre: " + this.getHoraDeCierre().toString() + "\n"
-                    + "Dia: " + DayOfWeekTranslator.getDiaDeLaSemana(this.getDiaDeCursado()) + "\n";
-                    return result;
+            if (db.getIdsByName(this.getNombre()).size() > 1) {
+                String result = "Nombre: " + this.getNombre() + "\n"
+                        + "Codigo de Todas Las Catedras: " + catedras + "\n"
+                        + "Descripcion: " + this.getDescripcionDelTema() + "\n"
+                        + "Objetivo: " + this.getObjetivo() + "\n"
+                        + "Personas Dirigidas: " + this.getPersonasDirigidas() + "\n"
+                        + "Costo: " + String.valueOf(this.getCosto()) + "\n"
+                        + "Hora Inicio: " + this.getHoraDeInicio().toString() + "\n"
+                        + "Hora Cierre: " + this.getHoraDeCierre().toString() + "\n"
+                        + "Dia: " + DayOfWeekTranslator.getDiaDeLaSemana(this.getDiaDeCursado()) + "\n";
+                return result;
+            }
+            else {
+                return this.toString();
+            }
         }
     }
 

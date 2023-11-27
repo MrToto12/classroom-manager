@@ -21,6 +21,7 @@ public class InscripcionPresencial extends JFrame{
     private JTextField txtDni;
     private JButton inscribirButton;
     public JPanel panelPres;
+    private JButton btnGoBack;
     private List<String> nombreCursosPresenciales = new ArrayList<>();
     private PersonaFactory alumnoFactory = AlumnoFactory.instance();
     private PersonaFactory docenteFactory = DocenteFactory.instance();
@@ -154,5 +155,19 @@ public class InscripcionPresencial extends JFrame{
             });
         }
 
+        btnGoBack.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Inscripcion vntIns = new Inscripcion(opcion,dni);
+                vntIns.setContentPane(vntIns.panelInscripcion);
+                vntIns.setVisible(true);
+                vntIns.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+                Window window = SwingUtilities.windowForComponent(btnGoBack);
+                if (window instanceof JFrame) {
+                    ((JFrame) window).dispose();
+                }
+            }
+        });
     }
 }

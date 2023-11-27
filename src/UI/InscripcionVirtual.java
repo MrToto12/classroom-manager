@@ -9,7 +9,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.List;
 
 public class InscripcionVirtual extends JFrame{
@@ -18,6 +17,7 @@ public class InscripcionVirtual extends JFrame{
     private JButton inscribirButton;
     public JPanel panelDist;
     private JLabel lbldni;
+    private JButton btnGoBack;
     PersonaFactory alumnoFactory = AlumnoFactory.instance();
     PersonaFactory docenteFactory = DocenteFactory.instance();
 
@@ -141,5 +141,19 @@ public class InscripcionVirtual extends JFrame{
                 }
             });
         }
+        btnGoBack.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Inscripcion vntIns = new Inscripcion(opcion,dni);
+                vntIns.setContentPane(vntIns.panelInscripcion);
+                vntIns.setVisible(true);
+                vntIns.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+                Window window = SwingUtilities.windowForComponent(btnGoBack);
+                if (window instanceof JFrame) {
+                    ((JFrame) window).dispose();
+                }
+            }
+        });
     }
 }

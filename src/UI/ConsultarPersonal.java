@@ -77,7 +77,7 @@ public class ConsultarPersonal extends JFrame {
                                 Integer dni = Integer.parseInt(txtDni.getText());
                                 Persona alumno = alumnoFactory.getFromDb(dni);
                                 if(alumno != null){
-                                    modelo.addElement(alumno.getNombre() + " " + alumno.getApellido());
+                                    modelo.addElement(alumno.getNombre() + " " + alumno.getApellido() +  " - " + alumno.getDni());
                                     JOptionPane.showMessageDialog(null,alumno.toString());
                                 }
                                 else {
@@ -108,7 +108,7 @@ public class ConsultarPersonal extends JFrame {
                                 Integer dni = Integer.parseInt(txtDni.getText());
                                 Persona docente = docenteFactory.getFromDb(dni);
                                 if(docente != null){
-                                    modelo.addElement(docente.getNombre() + " " + docente.getApellido());
+                                    modelo.addElement(docente.getNombre() + " " + docente.getApellido() +  " - " + docente.getDni());
                                     JOptionPane.showMessageDialog(null, docente.toString());
                                 }
                                 else {
@@ -130,6 +130,7 @@ public class ConsultarPersonal extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //CONSULTAR TODOS
+                modelo.clear();
                 if (rbtnDocente.isSelected()){
                     List<Persona> docentes = DocenteFactory.instance().getAllFromDb();
                     for(Persona docente : docentes){
