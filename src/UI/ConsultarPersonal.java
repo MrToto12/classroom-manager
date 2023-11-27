@@ -11,6 +11,8 @@ import Main.Curso;
 import Main.Persona;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
+import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +41,9 @@ public class ConsultarPersonal extends JFrame {
         docenteFactory = DocenteFactory.instance();
 
         jlistPersonal.setModel(modelo);
+
+        LineBorder bordeColor = new LineBorder(Color.black, 1);
+        jlistPersonal.setBorder(bordeColor);
 
         rbtnDocente.addItemListener(new ItemListener() {
             @Override

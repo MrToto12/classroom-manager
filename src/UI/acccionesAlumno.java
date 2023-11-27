@@ -5,6 +5,7 @@ import Main.Curso;
 import Main.Persona;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,6 +20,8 @@ public class acccionesAlumno extends JFrame{
 
     public acccionesAlumno(){
         setSize(600,600);
+        LineBorder bordeColor = new LineBorder(Color.black, 1);
+        lblInfoAlumno.setBorder(bordeColor);
 
         verInscripcionButton.addActionListener(new ActionListener() {
             @Override

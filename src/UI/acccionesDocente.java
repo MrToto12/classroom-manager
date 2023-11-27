@@ -7,6 +7,7 @@ import Main.Docente;
 import Main.Persona;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,6 +24,8 @@ public class acccionesDocente extends JFrame{
     public acccionesDocente(){
         setSize(600,600);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        LineBorder bordeColor = new LineBorder(Color.black, 1);
+        lblInfoDocente.setBorder(bordeColor);
 
 
         cursosAsignadosButton.addActionListener(new ActionListener() {

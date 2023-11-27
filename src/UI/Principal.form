@@ -6,8 +6,8 @@
       <xy x="20" y="3" width="818" height="550"/>
     </constraints>
     <properties>
-      <background color="-665637"/>
-      <foreground color="-665637"/>
+      <background color="-1"/>
+      <foreground color="-1"/>
     </properties>
     <border type="none"/>
     <children>
@@ -17,8 +17,9 @@
           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <background color="-665637"/>
+          <background color="-1"/>
           <enabled value="false"/>
+          <foreground color="-1"/>
           <visible value="true"/>
         </properties>
         <border type="none"/>
@@ -28,8 +29,9 @@
               <grid row="1" column="1" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
+              <background color="-16730113"/>
               <font name="Arial" size="18" style="1"/>
-              <foreground color="-16579066"/>
+              <foreground color="-16777216"/>
               <text value="Gestor de cursos"/>
             </properties>
           </component>
@@ -38,6 +40,10 @@
               <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
+              <background color="-1"/>
+              <focusable value="true"/>
+              <foreground color="-16777216"/>
+              <opaque value="false"/>
               <text value="Seleccione Modalidad"/>
             </properties>
           </component>
@@ -52,7 +58,7 @@
             </constraints>
             <properties>
               <background color="-14600373"/>
-              <foreground color="-2368549"/>
+              <foreground color="-1"/>
               <hideActionText value="false"/>
               <text value="Gestor de Personal"/>
             </properties>
@@ -64,6 +70,7 @@
             <properties>
               <enabled value="true"/>
               <font name="Arial" size="16" style="1"/>
+              <foreground color="-16777216"/>
               <text value="Otras consultas"/>
             </properties>
           </component>
@@ -79,8 +86,8 @@
               </grid>
             </constraints>
             <properties>
-              <background color="-70445"/>
-              <foreground color="-16579066"/>
+              <background color="-2368549"/>
+              <foreground color="-1"/>
               <model/>
             </properties>
           </component>
@@ -89,7 +96,9 @@
               <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <background color="-665637"/>
+              <background color="-1"/>
+              <borderPainted value="false"/>
+              <foreground color="-16777216"/>
               <text value="Distancia"/>
             </properties>
           </component>
@@ -98,7 +107,8 @@
               <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <background color="-665637"/>
+              <background color="-1"/>
+              <foreground color="-16777216"/>
               <text value="Presencial"/>
             </properties>
           </component>
@@ -107,6 +117,7 @@
               <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
+              <foreground color="-16777216"/>
               <text value="Cursos disponibles:"/>
             </properties>
           </component>
@@ -120,8 +131,9 @@
               <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <background color="-7952177"/>
-              <foreground color="-16579066"/>
+              <background color="-14600373"/>
+              <foreground color="-1"/>
+              <hideActionText value="false"/>
               <text value="Consultar"/>
             </properties>
           </component>
@@ -136,7 +148,7 @@
             </constraints>
             <properties>
               <background color="-14600373"/>
-              <foreground color="-2368549"/>
+              <foreground color="-1"/>
               <hideActionText value="false"/>
               <text value="Mostrar Cumpleañeros"/>
             </properties>
@@ -147,7 +159,7 @@
             </constraints>
             <properties>
               <background color="-14600373"/>
-              <foreground color="-2368549"/>
+              <foreground color="-1"/>
               <text value="Mostrar Alumnos con Descuento"/>
             </properties>
           </component>
@@ -157,7 +169,7 @@
             </constraints>
             <properties>
               <background color="-14600373"/>
-              <foreground color="-2368549"/>
+              <foreground color="-1"/>
               <text value="Mostrar Cursos Mas Vendidos"/>
             </properties>
           </component>
@@ -167,7 +179,7 @@
             </constraints>
             <properties>
               <background color="-14600373"/>
-              <foreground color="-2368549"/>
+              <foreground color="-1"/>
               <text value="Crear Docente, Curso o Alumno"/>
             </properties>
           </component>

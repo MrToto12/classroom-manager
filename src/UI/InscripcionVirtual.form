@@ -6,7 +6,8 @@
       <xy x="20" y="20" width="500" height="400"/>
     </constraints>
     <properties>
-      <background color="-665637"/>
+      <background color="-1"/>
+      <foreground color="-1"/>
     </properties>
     <border type="none"/>
     <children>
@@ -25,6 +26,8 @@
           <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
+          <background color="-1"/>
+          <foreground color="-16777216"/>
           <text value="Seleccione el curso"/>
         </properties>
       </component>
@@ -34,14 +37,16 @@
             <preferred-size width="150" height="-1"/>
           </grid>
         </constraints>
-        <properties/>
+        <properties>
+          <background color="-2368549"/>
+        </properties>
       </component>
       <component id="68c49" class="javax.swing.JComboBox" binding="cursosVirtuales">
         <constraints>
           <grid row="2" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <background color="-665637"/>
+          <background color="-2368549"/>
         </properties>
       </component>
       <component id="22de0" class="javax.swing.JLabel" binding="lbldni">
@@ -49,6 +54,8 @@
           <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
+          <background color="-1"/>
+          <foreground color="-16777216"/>
           <text value="Ingresar DNI"/>
         </properties>
       </component>
@@ -73,7 +80,7 @@
         </constraints>
         <properties>
           <background color="-14600373"/>
-          <foreground color="-2368549"/>
+          <foreground color="-1"/>
           <text value="Inscribir"/>
         </properties>
       </component>
@@ -82,8 +89,8 @@
           <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <background color="-9520197"/>
-          <foreground color="-16579066"/>
+          <background color="-14600373"/>
+          <foreground color="-1"/>
           <text value="Volver"/>
         </properties>
       </component>

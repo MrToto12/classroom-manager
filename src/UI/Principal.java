@@ -9,6 +9,8 @@ import Main.*;
 import Main.Menus.MainMenu;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
+import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +41,10 @@ public class Principal extends JFrame{
         setSize(600,600);
         jlistCursos.setModel(modelo);
         cursos_db = CursoDAOImpl.instance();
+
+        LineBorder bordeColor = new LineBorder(Color.black, 1);
+        jlistCursos.setBorder(bordeColor);
+
 
         btnConsultarCursos.addActionListener(new ActionListener() {
             @Override
@@ -194,4 +200,5 @@ public class Principal extends JFrame{
             }
         });
     }
+
 }
