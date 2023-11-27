@@ -57,7 +57,7 @@
         </constraints>
         <properties>
           <background color="-2368549"/>
-          <foreground color="-2368549"/>
+          <foreground color="-16579066"/>
         </properties>
       </component>
       <component id="cedb9" class="javax.swing.JButton" binding="consultarButton" default-binding="true">

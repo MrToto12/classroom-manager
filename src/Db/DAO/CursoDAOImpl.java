@@ -83,7 +83,7 @@ public class CursoDAOImpl implements CursoDAO{
                     int rowsAffected = preparedStatement.executeUpdate();
 
                     if (rowsAffected == 0) {
-                        System.out.println("No se encontro el curso con la id: " + id_curso);
+                       return "No se encontro el curso con la id: " + id_curso;
                     } else {
                         return "Se añadio el docente al curso: " + id_curso;
                     }
@@ -204,6 +204,9 @@ public class CursoDAOImpl implements CursoDAO{
                 }
             }
             else {  //El curso es virtual
+                if(alumnoYaInscripto(last_id_curso, id_alumno)){
+                    return "El alumno ya esta inscripto al curso virtual!";
+                }
                 inscribir(last_id_curso, id_alumno);
                 return "El alumno se ha inscripto al curso virtual correctamente!";
             }
@@ -249,10 +252,6 @@ public class CursoDAOImpl implements CursoDAO{
             preparedStatement.setInt(2, id_alumno);
 
             preparedStatement.executeUpdate();
-
-            //PRINT PARA DEBUGGING
-            System.out.println("Insertado el alumno: " + String.valueOf(id_alumno) + "\nEn el curso "
-            + String.valueOf(id_curso));
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -457,6 +456,18 @@ public class CursoDAOImpl implements CursoDAO{
             e.printStackTrace();
         }
         return 0;
+    }
+
+    private boolean alumnoYaInscripto(int id_curso, int id_alumno){
+        List<Curso> cursosAlumno = getCursosByAlumno(id_alumno);
+        Curso cursoAInscribir = getById(id_curso);
+
+        for(Curso curso : cursosAlumno){
+            if(curso.getNombre().equals(cursoAInscribir.getNombre()) && curso.getCodigoDeCatedra() == cursoAInscribir.getCodigoDeCatedra()){
+                return true;
+            }
+        }
+        return false;
     }
 
     private Curso mapResultSetToCurso(ResultSet resultSet) throws SQLException {

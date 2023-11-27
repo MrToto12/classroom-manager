@@ -4,8 +4,10 @@ import Db.DAO.CursoDAOImpl;
 
 import java.time.DayOfWeek;
 import java.time.LocalTime;
+import java.util.Collections;
+import java.util.List;
 
-    public class CursoPresencial extends Curso {
+public class CursoPresencial extends Curso {
         private int capacidadMaxima = 15; // Valor por defecto dado en el planteo
 
         public CursoPresencial(String nombre, int codigoDeCatedra, String descripcionDelTema, String objetivo, String personasDirigidas, double costo, String linkMeet, DayOfWeek diaDeCursado, LocalTime horaDeInicio, LocalTime horaDeCierre) {
@@ -66,9 +68,11 @@ import java.time.LocalTime;
         public String printAllCatedras() {
             String catedras = "";
             CursoDAOImpl db = CursoDAOImpl.instance();
-            for (int id_catedra : db.getIdsByName(this.getNombre())) {
+            List<Integer> id_catedras = db.getIdsByName(this.getNombre());
+            Collections.reverse(id_catedras);
+            for (int id_catedra : id_catedras) {
                 Curso catedra = db.getById(id_catedra);
-                catedras += String.valueOf(catedra.getCodigoDeCatedra()) + ", ";
+                catedras += String.valueOf(catedra.getCodigoDeCatedra()) + " | ";
             }
             if (db.getIdsByName(this.getNombre()).size() > 1) {
                 String result = "Nombre: " + this.getNombre() + "\n"

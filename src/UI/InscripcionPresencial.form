@@ -35,6 +35,7 @@
         </constraints>
         <properties>
           <background color="-2368549"/>
+          <foreground color="-16579066"/>
         </properties>
       </component>
       <component id="409b9" class="javax.swing.JComboBox" binding="cursosPresenciales" default-binding="true">
@@ -43,7 +44,7 @@
         </constraints>
         <properties>
           <background color="-2368549"/>
-          <foreground color="-1"/>
+          <foreground color="-16579066"/>
         </properties>
       </component>
       <component id="32b22" class="javax.swing.JLabel">

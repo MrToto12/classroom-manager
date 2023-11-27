@@ -142,7 +142,7 @@ public class Principal extends JFrame{
                     JOptionPane.showMessageDialog(null, "Ningun docente ni alumno cumple años la proxima semana :(");
                 }
                 else {
-                    String mensajeCumpleanos = "===== ALUMNOS Y DOCENTES CON PROXIMIDAD A SU CUMPLEAÑOS ====\n";
+                    String mensajeCumpleanos = "ALUMNOS Y DOCENTES CON PROXIMIDAD A SU CUMPLEAÑOS: \n";
                     for(Persona cumpleanero : personasCumpleaneras){
                         mensajeCumpleanos += cumpleanero.getNombre() + " " + cumpleanero.getApellido() + " cumple " +
                                 (cumpleanero.getEdad() + 1) + " años el dia " + cumpleanero.getFechaDeNacimiento().getDayOfMonth() +
@@ -163,7 +163,7 @@ public class Principal extends JFrame{
                 }
                 else{
                     // -------- LISTAR DESCUENTOS --------
-                    String mensajeDescuento = "===== ALUMNOS CON DESCUENTO ====\n";
+                    String mensajeDescuento = "ALUMNOS CON DESCUENTO: \n";
                     for(Persona alumnoConDescuento : Alumno.getAlumnosConDescuento()){
                         mensajeDescuento += "El alumno " + alumnoConDescuento.getNombre() + " " + alumnoConDescuento.getApellido() +
                                 " tiene acceso al descuento del 20%\n";
