@@ -46,13 +46,13 @@ public class Docente extends Persona {
         return result;
     }
 
-    public String inscribirACurso(String nombreCurso, int id_curso){
+    public String inscribirACurso(String nombreCurso, int codigoDeCatedra){
         CursoDAOImpl db = CursoDAOImpl.instance();
         Scanner scanner = new Scanner(System.in);
         List<Integer> id_catedras = db.getIdsByName(nombreCurso);
 
         for(int id_catedra: id_catedras){
-            if(id_curso == db.getById(id_catedra).getCodigoDeCatedra()){
+            if(codigoDeCatedra == db.getById(id_catedra).getCodigoDeCatedra()){
                return db.addDocente(id_catedra, DocenteDAOImpl.instance().getIdByDni(this.getDni()));
 
             }

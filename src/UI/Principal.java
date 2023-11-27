@@ -31,6 +31,7 @@ public class Principal extends JFrame{
     private JButton mostrarAlumnosConDescuentoButton;
     private JButton mostrarCursosMasVendidosButton;
     private JButton crearDocenteCursoOButton;
+    private JButton eliminarCursoButton;
 
     ArrayList presenciales = new ArrayList();
     ArrayList distancia = new ArrayList();
@@ -38,7 +39,7 @@ public class Principal extends JFrame{
 
 
     public Principal() {
-        setSize(600,600);
+        setSize(900,600);
         jlistCursos.setModel(modelo);
         cursos_db = CursoDAOImpl.instance();
 
@@ -197,6 +198,16 @@ public class Principal extends JFrame{
                 JOptionPane.showMessageDialog(null, "Continue por consola y vuelva cuando haya finalizado.");
                 MainMenu menu = new MainMenu();
 
+            }
+        });
+
+        eliminarCursoButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                EliminarCurso eliminarCurso = new EliminarCurso();
+                eliminarCurso.setContentPane(eliminarCurso.panelPres);
+                eliminarCurso.setVisible(true);
+                eliminarCurso.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             }
         });
     }

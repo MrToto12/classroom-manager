@@ -33,7 +33,7 @@ public class CursoVirtualFactory extends CursosFactory{
         if(!db.existsInDb(nombre, codigoDeCatedra)){
             db.insert("Virtual", curso);
 
-            System.out.println("-- El curso se ha insertado en la base de datos correctamente --\n");
+            System.out.println("-- El curso se ha creado correctamente --\n");
         }
 
 

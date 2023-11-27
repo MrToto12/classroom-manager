@@ -34,7 +34,7 @@ public class CursoPresencialFactory extends CursosFactory{
         if(!db.existsInDb(nombre, codigoDeCatedra)){
             db.insert("Presencial", curso);
 
-            System.out.println("-- El curso se ha insertado en la base de datos correctamente --\n");
+            System.out.println("-- El curso se ha creado correctamente --\n");
         }
 
         return curso;
