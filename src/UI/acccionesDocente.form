@@ -27,6 +27,7 @@
             </constraints>
             <properties>
               <background color="-16777216"/>
+              <font style="1"/>
               <foreground color="-16777216"/>
               <text value="Información:"/>
             </properties>

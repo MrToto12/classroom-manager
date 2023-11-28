@@ -7,8 +7,9 @@ public class DbConnect {
     private static DbConnect instance = null;
 
     private static final String DB_USER = "postgres";
-    private static final String DB_PASS = "hola1213";
+    private static final String DB_PASS = "hola1213";       //Añadir contraseña en caso de ser necesario
     private static final String DB_URL = "jdbc:postgresql://localhost:5432/DB_Facultad";
+    //Cambiar URL antes de ejecutar el programa
 
     private DbConnect(){}
 
@@ -21,6 +22,7 @@ public class DbConnect {
 
     public static Connection getConnection() throws SQLException {
         try {
+            //Verificar que el driver se encuentre en las librerias externas antes de ejecutar el programa
             Class.forName("org.postgresql.Driver");
             return DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
         } catch (SQLException e) {

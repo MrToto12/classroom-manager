@@ -22,7 +22,7 @@ public class acccionesDocente extends JFrame{
     public JLabel lblInfoDocente;
 
     public acccionesDocente(){
-        setSize(600,600);
+        setSize(760,760);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         LineBorder bordeColor = new LineBorder(Color.black, 1);
         lblInfoDocente.setBorder(bordeColor);
