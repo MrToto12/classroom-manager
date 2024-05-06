@@ -34,7 +34,7 @@ For further understanding on how we implemented the design patterns mentioned ab
 ## Installation
 1. Download this project as zip and extract it.
 2. Import it in IntelliJ IDE.
-3. Migrate the database file into your PostgreSQL.
+3. Migrate the [database file](DBFacultad.sql) into your PostgreSQL.
 4. Verify you have already installed `org.postgresql.Driver` and it's been added to project external libraries. In case you don't download it from the [official page](https://jdbc.postgresql.org/download/)
 5. Connect your database by modifying the following lines in
    `src/Db/DbConnect/DbConnect.java`
