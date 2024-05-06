@@ -16,7 +16,7 @@ The project aim is to design and implement a classroom manager where we can crea
 This project implements the following design patterns:
 * Abstract Factory: Implemented in the professors and students creation through the _PersonaFactory_ class
 * Strategy: Implementd in _HasLegajo_ interface to allow future extensions or variations of the way legacy is created for classes that implement this interface.
-* DAO: It was implemented in _PersonaDAO_ and _CursoDAO_ interfaces to separate the DB access logic from the rest of the program code. This facilitates maintainability and future changes that might be introduced on the system.
+* DAO: Implemented in _PersonaDAO_ and _CursoDAO_ interfaces to separate the DB access logic from the rest of the program code. This facilitates maintainability and future changes that might be introduced on the system.
 * Singleton: Implemented in different classes like _DbConnect_ or _AlumnoFacotry_ to ensure that these classes have only one instance and provide a global access point to that instance.
 
 For further understanding on how we implemented the design patterns mentioned above, along with UML diagrams and examples, you can download the PDF document
