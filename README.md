@@ -36,11 +36,14 @@ For further understanding on how we implemented the design patterns mentioned ab
 2. Import it in IntelliJ IDE.
 3. Migrate the database file into your PostgreSQL.
 4. Verify you have already installed `org.postgresql.Driver` and it's been added to project external libraries. In case you don't download it from the [official page](https://jdbc.postgresql.org/download/)
-5. Connect your database by modifying the following lines in src/Db/DbConnect/DbConnect.java
-   `  private static final String DB_USER = "yourDbUser";
-    private static final String DB_PASS = "yourDbPass";     
-    private static final String DB_URL = "yourLocalDbURL";`
-6. Run the program.
+5. Connect your database by modifying the following lines in
+   `src/Db/DbConnect/DbConnect.java`
+   ```java
+   private static final String DB_USER = "yourDbUser";
+   private static final String DB_PASS = "yourDbPass";     
+   private static final String DB_URL = "yourLocalDbURL";
+
+7. Run the program.
 
 ## Credits
 Authors:
