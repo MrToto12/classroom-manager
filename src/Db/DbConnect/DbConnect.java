@@ -6,9 +6,9 @@ public class DbConnect {
     private Connection connection = null;
     private static DbConnect instance = null;
 
-    private static final String DB_USER = "postgres";
-    private static final String DB_PASS = "hola1213";       //Añadir contraseña en caso de ser necesario
-    private static final String DB_URL = "jdbc:postgresql://localhost:5432/DB_Facultad";
+    private static final String DB_USER = "yourDbUser";
+    private static final String DB_PASS = "yourDbPass";       //Añadir contraseña en caso de ser necesario
+    private static final String DB_URL = "yourDbURL";
     //Cambiar URL antes de ejecutar el programa
 
     private DbConnect(){}
