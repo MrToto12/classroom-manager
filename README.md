@@ -9,10 +9,11 @@ Simple classroom manager developed with _Java_, _Java Swing_ and _PostgreSQL_.
 5. [Credits](#credits)
 
 ## About
-This project is classwork for **"Programming Paradigms"** course at Univerisdad Siglo 21 to demonstrate our knowledge in design patterns and user interface in Java Swing. 
+This project is coursework for the **"Programming Paradigms"** course at Universidad Siglo 21, aimed at demonstrating our understanding in design patterns and user interface development using _Java Swing_.
 
 ## Project Goal and Design Patterns Implemented
 The project aim is to design and implement a classroom manager where we can create, modify and delete courses, professors and students and manage the courses inscriptions. We had to use different **design patterns** in the implementation and make a fully functional **UI** with Java Swing.
+
 This project implements the following design patterns:
 * Abstract Factory: Implemented in the professors and students creation through the _PersonaFactory_ class
 * Strategy: Implementd in _HasLegajo_ interface to allow future extensions or variations of the way legacy is created for classes that implement this interface.
@@ -34,8 +35,8 @@ For further understanding on how we implemented the design patterns mentioned ab
 ## Installation
 1. Download this project as zip and extract it.
 2. Import it in your preferred IDE.
-3. Migrate the [database file](DBFacultad.sql) into your **PostgreSQL** manager.
-4. Verify you have already installed `org.postgresql.Driver` and it's been added to project external libraries. In case you don't download it from the [official page](https://jdbc.postgresql.org/download/)
+3. Migrate the [database file](DBFacultad.sql) into your **PostgreSQL** manager. We've used [pgAdmin 4](https://www.pgadmin.org/download/)
+4. Verify you have already installed `org.postgresql.Driver` and it's been added to project external libraries. In case you don't have it, download it from the [official page](https://jdbc.postgresql.org/download/)
 5. Connect your database by modifying the following lines in
    `src/Db/DbConnect/DbConnect.java`
    ```java
