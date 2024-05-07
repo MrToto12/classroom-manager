@@ -24,7 +24,7 @@ For further understanding on how we implemented the design patterns mentioned ab
 
 
 ## Key Learnings
-* Organize the project development using **RUP methodology**.
+* Organize the project development using **Unified Software Development Process**.
 * Team work and communication.
 * Implement design patterns that match the problem requirements.
 * Develop a user-friendly UI using **Java Swing**.
